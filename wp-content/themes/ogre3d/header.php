@@ -69,6 +69,21 @@
 				        <h4><?php bbp_user_profile_link( bbp_get_current_user_id() ); ?></h4>
 
 				        <?php bbp_logout_link(); ?>
+
+                        <?php
+                        global $wpdb, $current_user;
+                        // get number of PM
+		                $num_pm = $wpdb->get_var( 'SELECT COUNT(*) FROM ' . $wpdb->prefix . 'pm WHERE `recipient` = "' . $current_user->user_login . '" AND `deleted` != "2"' );
+		                $num_unread = $wpdb->get_var( 'SELECT COUNT(*) FROM ' . $wpdb->prefix . 'pm WHERE `recipient` = "' . $current_user->user_login . '" AND `read` = 0 AND `deleted` != "2"' );
+
+		                if ( empty( $num_pm ) ) {
+			                $num_pm = 0;
+		                }
+		                if ( empty( $num_unread ) ) {
+			                $num_unread = 0;
+		                }
+
+                        echo '<a href="', get_bloginfo( 'wpurl' ), '/?page_id=19&page=rwpm_inbox">', 'Messages (', $num_unread, ')</a></p>'; ?>
 			        </div>
                     <?php else: ?>
 
@@ -83,7 +98,7 @@
         <div id="navmenu" role="banner">
 		    <div class="centered">
 			    <ul id="menu">
-			    <?php wp_list_pages('depth=1&sort_column=menu_order&title_li='); ?>
+                <?php wp_nav_menu() ?>
 			    </ul>
 		    </div>
 	    </div>
