@@ -432,6 +432,12 @@ a.read-more-button, a.more-link
     
 }
 
+#main_page_content #latest-news h2
+{
+    margin-bottom: 10px;
+    background: url('images/news-icon.png') top right no-repeat;
+}
+
 #main_page_content #latest-news h2, #main_page_content #latest-topics h2
 {
     margin-bottom: 10px;
