@@ -30,7 +30,7 @@
 	<?php if ( have_comments() ) : ?>
 		<h2 id="comments-title">
 			<?php
-				printf( _n( 'One thought on &ldquo;%2$s&rdquo;', '%1$s thoughts on &ldquo;%2$s&rdquo;', get_comments_number(), 'twentyeleven' ),
+				printf( _n( 'One comment', '%1$s comments', get_comments_number(), 'ogre' ),
 					number_format_i18n( get_comments_number() ), '<span>' . get_the_title() . '</span>' );
 			?>
 		</h2>
@@ -51,7 +51,7 @@
 				 * define twentyeleven_comment() and that will be used instead.
 				 * See twentyeleven_comment() in twentyeleven/functions.php for more.
 				 */
-				wp_list_comments( array( 'callback' => 'twentyeleven_comment' ) );
+				wp_list_comments( array( 'callback' => 'ogre_comment' ) );
 			?>
 		</ol>
 

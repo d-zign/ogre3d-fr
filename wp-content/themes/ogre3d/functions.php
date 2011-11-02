@@ -99,7 +99,7 @@ function twentyeleven_setup() {
 	add_theme_support( 'automatic-feed-links' );
 
 	// This theme uses wp_nav_menu() in one location.
-	register_nav_menu( 'primary', __( 'Primary Menu', 'twentyeleven' ) );
+	register_nav_menu( 'primary', __( 'Primary Menu', 'ogre' ) );
 
 	// Add support for a variety of post formats
 	add_theme_support( 'post-formats', array( 'aside', 'link', 'gallery', 'status', 'quote', 'image' ) );
@@ -121,10 +121,10 @@ endif; // twentyeleven_setup
  * To override this length in a child theme, remove the filter and add your own
  * function tied to the excerpt_length filter hook.
  */
-function twentyeleven_excerpt_length( $length ) {
+function ogre_excerpt_length( $length ) {
 	return 40;
 }
-add_filter( 'excerpt_length', 'twentyeleven_excerpt_length' );
+add_filter( 'excerpt_length', 'ogre_excerpt_length' );
 
 /**
  * Returns a "Continue Reading" link for excerpts
@@ -151,29 +151,29 @@ add_filter( 'excerpt_more', 'ogre_auto_excerpt_more' );
  * To override this link in a child theme, remove the filter and add your own
  * function tied to the get_the_excerpt filter hook.
  */
-function twentyeleven_custom_excerpt_more( $output ) {
+function ogre_custom_excerpt_more( $output ) {
 	if ( has_excerpt() && ! is_attachment() ) {
 		$output .= twentyeleven_continue_reading_link();
 	}
 	return $output;
 }
-add_filter( 'get_the_excerpt', 'twentyeleven_custom_excerpt_more' );
+add_filter( 'get_the_excerpt', 'ogre_custom_excerpt_more' );
 
 /**
  * Get our wp_nav_menu() fallback, wp_page_menu(), to show a home link.
  */
-function twentyeleven_page_menu_args( $args ) {
+function ogre_page_menu_args( $args ) {
 	$args['show_home'] = true;
 	return $args;
 }
-add_filter( 'wp_page_menu_args', 'twentyeleven_page_menu_args' );
+add_filter( 'wp_page_menu_args', 'ogre_page_menu_args' );
 
 /**
  * Register our sidebars and widgetized areas. Also register the default Epherma widget.
  *
  * @since Twenty Eleven 1.0
  */
-function twentyeleven_widgets_init() {
+function ogre_widgets_init() {
 
 	register_widget( 'Twenty_Eleven_Ephemera_Widget' );
 
@@ -226,7 +226,7 @@ function twentyeleven_widgets_init() {
 		'after_title' => '</h3>',
 	) );
 }
-add_action( 'widgets_init', 'twentyeleven_widgets_init' );
+add_action( 'widgets_init', 'ogre_widgets_init' );
 
 /**
  * Display navigation to next/previous pages when applicable
@@ -289,7 +289,7 @@ function twentyeleven_footer_sidebar_class() {
 		echo 'class="' . $class . '"';
 }
 
-if ( ! function_exists( 'twentyeleven_comment' ) ) :
+if ( ! function_exists( 'ogre_comment' ) ) :
 /**
  * Template for comments and pingbacks.
  *
@@ -300,14 +300,14 @@ if ( ! function_exists( 'twentyeleven_comment' ) ) :
  *
  * @since Twenty Eleven 1.0
  */
-function twentyeleven_comment( $comment, $args, $depth ) {
+function ogre_comment( $comment, $args, $depth ) {
 	$GLOBALS['comment'] = $comment;
 	switch ( $comment->comment_type ) :
 		case 'pingback' :
 		case 'trackback' :
 	?>
 	<li class="post pingback">
-		<p><?php _e( 'Pingback:', 'twentyeleven' ); ?> <?php comment_author_link(); ?><?php edit_comment_link( __( 'Edit', 'twentyeleven' ), '<span class="edit-link">', '</span>' ); ?></p>
+		<p><?php _e( 'Pingback:', 'ogre' ); ?> <?php comment_author_link(); ?><?php edit_comment_link( __( 'Edit', 'ogre' ), '<span class="edit-link">', '</span>' ); ?></p>
 	<?php
 			break;
 		default :
@@ -317,29 +317,25 @@ function twentyeleven_comment( $comment, $args, $depth ) {
 			<footer class="comment-meta">
 				<div class="comment-author vcard">
 					<?php
-						$avatar_size = 68;
-						if ( '0' != $comment->comment_parent )
-							$avatar_size = 39;
-
-						echo get_avatar( $comment, $avatar_size );
+						echo get_avatar( $comment, 40 );
 
 						/* translators: 1: comment author, 2: date and time */
-						printf( __( '%1$s on %2$s <span class="says">said:</span>', 'twentyeleven' ),
-							sprintf( '<span class="fn">%s</span>', get_comment_author_link() ),
-							sprintf( '<a href="%1$s"><time pubdate datetime="%2$s">%3$s</time></a>',
+						printf( __( '%1$s %2$s', 'ogre' ),
+							sprintf( '<span class="comment-author">%s</span>', get_comment_author_link() ),
+							sprintf( '<a class="comment-date" href="%1$s"><time pubdate datetime="%2$s">%3$s</time></a>',
 								esc_url( get_comment_link( $comment->comment_ID ) ),
 								get_comment_time( 'c' ),
 								/* translators: 1: date, 2: time */
-								sprintf( __( '%1$s at %2$s', 'twentyeleven' ), get_comment_date(), get_comment_time() )
+								sprintf( __( '%1$s at %2$s', 'ogre' ), get_comment_date(), get_comment_time() )
 							)
 						);
 					?>
 
-					<?php edit_comment_link( __( 'Edit', 'twentyeleven' ), '<span class="edit-link">', '</span>' ); ?>
+					<?php edit_comment_link( __( 'Edit', 'ogre' ), '<span class="edit-link">', '</span>' ); ?>
 				</div><!-- .comment-author .vcard -->
 
 				<?php if ( $comment->comment_approved == '0' ) : ?>
-					<em class="comment-awaiting-moderation"><?php _e( 'Your comment is awaiting moderation.', 'twentyeleven' ); ?></em>
+					<em class="comment-awaiting-moderation"><?php _e( 'Your comment is awaiting moderation.', 'ogre' ); ?></em>
 					<br />
 				<?php endif; ?>
 
@@ -348,7 +344,7 @@ function twentyeleven_comment( $comment, $args, $depth ) {
 			<div class="comment-content"><?php comment_text(); ?></div>
 
 			<div class="reply">
-				<?php comment_reply_link( array_merge( $args, array( 'reply_text' => __( 'Reply <span>&darr;</span>', 'twentyeleven' ), 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) ); ?>
+				<?php comment_reply_link( array_merge( $args, array( 'reply_text' => __( 'Reply <span>&darr;</span>', 'ogre' ), 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) ); ?>
 			</div><!-- .reply -->
 		</article><!-- #comment-## -->
 
@@ -366,7 +362,7 @@ if ( ! function_exists( 'twentyeleven_posted_on' ) ) :
  * @since Twenty Eleven 1.0
  */
 function twentyeleven_posted_on() {
-	printf( __( '<span class="sep">Posted on </span><a href="%1$s" title="%2$s" rel="bookmark"><time class="entry-date" datetime="%3$s" pubdate>%4$s</time></a><span class="by-author"> <span class="sep"> by </span> <span class="author vcard"><a class="url fn n" href="%5$s" title="%6$s" rel="author">%7$s</a></span></span>', 'twentyeleven' ),
+	printf( __( '<span class="sep">Posted on </span><a href="%1$s" title="%2$s" rel="bookmark"><time class="entry-date" datetime="%3$s" pubdate>%4$s</time></a><span class="by-author"> <span class="sep"> by </span> <span class="author vcard"><a class="url fn n" href="%5$s" title="%6$s" rel="author">%7$s</a></span></span>', 'ogre' ),
 		esc_url( get_permalink() ),
 		esc_attr( get_the_time() ),
 		esc_attr( get_the_date( 'c' ) ),

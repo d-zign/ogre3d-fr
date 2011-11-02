@@ -158,11 +158,7 @@ a.read-more-button, a.more-link
 .hentry
 {
     background: url("images/entry-bottom.png") no-repeat bottom #f5f5f5;
-}
-
-.hentry
-{
-    padding-bottom: 30px;
+	padding-bottom: 30px;
 }
 
 /* ----------------------------------------------- */
@@ -2261,14 +2257,21 @@ section.ephemera .entry-title a span {
 /* =Comments
 ----------------------------------------------- */
 
-#comments-title {
-	color: #666;
-	font-size: 10px;
-	font-weight: 500;
-	line-height: 2.6em;
-	padding: 0 0 2.6em;
-	text-transform: uppercase;
+#comments
+{
+	border: solid 1px #ddd;
+	background: #f1f1f1;
 }
+
+#comments-title
+{
+	color: #666;
+	font-size: 17px;
+	padding: 10px;
+	font-weight: bold;
+	/*text-transform: uppercase;*/
+}
+
 .nopassword,
 .nocomments {
 	color: #aaa;
@@ -2277,22 +2280,23 @@ section.ephemera .entry-title a span {
 	margin: 26px 0;
 	text-align: center;
 }
-.commentlist {
+.commentlist
+{
 	list-style: none;
 	margin: 0 auto;
-	width: 68.9%;
+	width: 658px;
 }
 .content .commentlist,
 .page-template-sidebar-page-php .commentlist {
 	width: 100%; /* reset the width for the one-column and sidebar page layout */
 }
 .commentlist > li.comment {
-	background: #f6f6f6;
-	border: 1px solid #ddd;
+	background: none;
+	border-bottom: 1px solid #ddd;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
 	margin: 0 0 1.625em;
-	padding: 1.625em;
+	padding: 0;
 	position: relative;
 }
 .commentlist .pingback {
@@ -2303,18 +2307,13 @@ section.ephemera .entry-title a span {
 	list-style: none;
 	margin: 0;
 }
-.commentlist .children li.comment {
-	background: #fff;
-	border-left: 1px solid #ddd;
-	-moz-border-radius: 0 3px 3px 0;
-	border-radius: 0 3px 3px 0;
+.commentlist .children li.comment
+{
 	margin: 1.625em 0 0;
-	padding: 1.625em;
+	padding: 0;
 	position: relative;
 }
-.commentlist .children li.comment .fn {
-	display: block;
-}
+
 .comment-meta .fn {
 	font-style: normal;
 }
@@ -2322,10 +2321,12 @@ section.ephemera .entry-title a span {
 	color: #666;
 	font-size: 12px;
 	line-height: 2.2em;
+	overflow: auto;
+	padding-left: 60px;
 }
 .commentlist .children li.comment .comment-meta {
 	line-height: 1.625em;
-	margin-left: 50px;
+	padding-left: 60px;
 }
 .commentlist .children li.comment .comment-content {
 	margin: 1.625em 0 0;
@@ -2343,16 +2344,12 @@ section.ephemera .entry-title a span {
 	-webkit-box-shadow: 0 1px 2px #ccc;
 	-moz-box-shadow: 0 1px 2px #ccc;
 	box-shadow: 0 1px 2px #ccc;
-	left: -102px;
+	left: 10px;
 	padding: 0;
-	position: absolute;
-	top: 0;
-}
-.commentlist > li:before {
-	content: url(images/comment-arrow.png);
-	left: -21px;
+	top: 10px;
 	position: absolute;
 }
+
 .commentlist > li.pingback:before {
 	content: '';
 }
@@ -2361,9 +2358,9 @@ section.ephemera .entry-title a span {
 	-webkit-box-shadow: none;
 	-moz-box-shadow: none;
 	box-shadow: none;
-	left: 2.2em;
+	left: 10px;
 	padding: 0;
-	top: 2.2em;
+	top: 10px;
 }
 a.comment-reply-link {
 	background: #eee;
@@ -2387,28 +2384,6 @@ a.comment-reply-link > span {
 	top: -1px;
 }
 
-/* Post author highlighting */
-.commentlist > li.bypostauthor {
-	background: #ddd;
-	border-color: #d3d3d3;
-}
-.commentlist > li.bypostauthor .comment-meta {
-	color: #575757;
-}
-.commentlist > li.bypostauthor .comment-meta a:focus,
-.commentlist > li.bypostauthor .comment-meta a:active,
-.commentlist > li.bypostauthor .comment-meta a:hover {
-}
-.commentlist > li.bypostauthor:before {
-	content: url(images/comment-arrow-bypostauthor.png);
-}
-
-/* Post Author threaded comments */
-.commentlist .children > li.bypostauthor {
-	background: #ddd;
-	border-color: #d3d3d3;
-}
-
 /* sidebar-page.php comments */
 /* Make sure we have room for our comment avatars */
 .page-template-sidebar-page-php .commentlist > li.comment,
@@ -2420,6 +2395,23 @@ a.comment-reply-link > span {
 .page-template-sidebar-page-php #respond {
 	width: auto;
 }
+
+.comment
+{
+	font-size: 13px;
+}
+
+.comment .comment-author
+{
+	float: left;
+}
+
+.comment .comment-date
+{
+	clear: left;
+	float: left;
+}
+
 
 /* Comment Form */
 #respond {
