@@ -188,7 +188,7 @@ a.read-more-button, a.more-link
 
 #header #logo:hover
 {
-    background: transparent url('images/logo-hover.png') no-repeat top left;
+    background: transparent url('images/logo.png') no-repeat 0 -106px;
 }
 
 #header #login-widget
@@ -275,14 +275,14 @@ a.read-more-button, a.more-link
 #navmenu ul li.current_page_item a
 {
     color: #e4f07d;
-    background: #ff0000 url('images/menu-current.png') repeat-x;
+    background: #ff0000 url('images/menu-bkg.png') repeat-x 0 -47px;
     height: 47px;
 }
 
 #navmenu ul li a:hover
 {
     color: #e4f07d;
-    background: #ff0000 url('images/menu-hover.png') repeat-x;
+    background: #ff0000 url('images/menu-bkg.png') repeat-x 0 -94px;
     height: 47px;
 }
 
@@ -385,7 +385,7 @@ a.read-more-button, a.more-link
 
 #download-button:hover
 {
-    background: url('images/download-button-hover.png') no-repeat;
+    background: url('images/download-button.png') no-repeat 0 -51px;
 }
 
 #main_page_content
