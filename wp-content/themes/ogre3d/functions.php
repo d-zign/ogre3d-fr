@@ -322,26 +322,22 @@ function ogre_comment( $comment, $args, $depth ) {
 						/* translators: 1: comment author, 2: date and time */
 						printf( __( '%1$s %2$s', 'ogre' ),
 							sprintf( '<span class="comment-author">%s</span>', get_comment_author_link() ),
-							sprintf( '<a class="comment-date" href="%1$s"><time pubdate datetime="%2$s">%3$s</time></a>',
-								esc_url( get_comment_link( $comment->comment_ID ) ),
-								get_comment_time( 'c' ),
-								/* translators: 1: date, 2: time */
-								sprintf( __( '%1$s at %2$s', 'ogre' ), get_comment_date(), get_comment_time() )
-							)
+							sprintf( '<span class="comment-date">%1$s</span>', sprintf( __( '%1$s at %2$s', 'ogre' ), get_comment_date(), get_comment_time()))
 						);
 					?>
-
-					<?php edit_comment_link( __( 'Edit', 'ogre' ), '<span class="edit-link">', '</span>' ); ?>
+					
 				</div><!-- .comment-author .vcard -->
-
-				<?php if ( $comment->comment_approved == '0' ) : ?>
-					<em class="comment-awaiting-moderation"><?php _e( 'Your comment is awaiting moderation.', 'ogre' ); ?></em>
-					<br />
-				<?php endif; ?>
+				<?php edit_comment_link( __( 'Edit', 'ogre' ), '<span class="edit-link">', '</span>' ); ?>
 
 			</footer>
 
-			<div class="comment-content"><?php comment_text(); ?></div>
+			<div class="comment-content">
+			<?php if ( $comment->comment_approved == '0' ) : ?>
+				<em class="comment-awaiting-moderation"><?php _e( 'Your comment is awaiting moderation.', 'ogre' ); ?></em>
+				<br />
+			<?php endif; ?>
+			<?php comment_text(); ?>
+			</div>
 
 			<div class="reply">
 				<?php comment_reply_link( array_merge( $args, array( 'reply_text' => __( 'Reply <span>&darr;</span>', 'ogre' ), 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) ); ?>
