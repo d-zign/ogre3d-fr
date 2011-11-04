@@ -2263,18 +2263,32 @@ section.ephemera .entry-title a span {
 /* =Comments
 ----------------------------------------------- */
 
+.comments-arrow
+{
+	background: url(images/comments-bkg.png) no-repeat;
+	height: 100px;
+	width: 680px;
+}
+
 #comments
 {
-	border: solid 1px #ddd;
 	background: #f1f1f1;
+	background: url(images/comments.png) repeat-y;
+	margin-top: -75px;
+	overflow: auto;
+	border-bottom: solid 8px black;
 }
 
 #comments-title
 {
-	color: #666;
-	font-size: 17px;
-	padding: 10px;
+	color: white;
+	font-size: 14px;
 	font-weight: bold;
+	background: url(images/comments-title.png) no-repeat;
+    text-shadow: 0.1em 0.1em #333333;
+	padding: 0 10px ;
+	line-height: 38px;
+	height: 63px;
 	/*text-transform: uppercase;*/
 }
 
@@ -2290,18 +2304,16 @@ section.ephemera .entry-title a span {
 {
 	list-style: none;
 	margin: 0 auto;
-	width: 658px;
+	width: 678px;
 }
+
 .content .commentlist,
 .page-template-sidebar-page-php .commentlist {
 	width: 100%; /* reset the width for the one-column and sidebar page layout */
 }
-.commentlist > li.comment {
+.commentlist > li.comment
+{
 	background: none;
-	border-bottom: 1px solid #ddd;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-	margin: 0 0 1.625em;
 	padding: 0;
 	position: relative;
 }
@@ -2394,6 +2406,7 @@ a.comment-reply-link > span {
 .comment
 {
 	font-size: 13px;
+	position: relative;
 }
 
 .comment .comment-author
@@ -2401,6 +2414,7 @@ a.comment-reply-link > span {
 	float: left;
 	font-size: 13px;
 	font-weight: bold;
+	color: black;
 }
 
 .comment .comment-date
@@ -2409,6 +2423,12 @@ a.comment-reply-link > span {
 	float: left;
 	font-weight: normal;
 	font-size: 12px;
+}
+
+.commentlist > li.comment.depth-1
+{
+	padding: 0 10px 20px 10px;
+	background: url(images/comment-bottom.png) bottom no-repeat;
 }
 
 .children
@@ -2426,6 +2446,7 @@ a.comment-reply-link > span {
 	padding: 10px;
 	position: relative;
 	width: 636px;
+	overflow: auto;
 }
 
 #respond input[type="text"],
@@ -2434,16 +2455,18 @@ a.comment-reply-link > span {
 	background: #fff;
 	border: 1px solid #ccc;
 	position: relative;
-	padding: 10px;
+	padding: 5px;
 	text-indent: 80px;
 }
 
 #respond .comment-form-author,
 #respond .comment-form-email,
 #respond .comment-form-url,
-#respond .comment-form-comment {
+#respond .comment-form-comment
+{
 	position: relative;
 }
+
 #respond .comment-form-author label,
 #respond .comment-form-email label,
 #respond .comment-form-url label,
@@ -2457,7 +2480,7 @@ a.comment-reply-link > span {
 	min-width: 60px;
 	padding: 4px 10px;
 	position: relative;
-	top: 40px;
+	top: 35px;
 	z-index: 1;
 }
 
@@ -2466,52 +2489,63 @@ a.comment-reply-link > span {
 	text-indent: 0;
 	z-index: 1;
 }
-#respond textarea {
+#respond textarea 
+{
 	resize: vertical;
-	width: 95%;
+	width: 624px;
 }
+
 #respond .comment-form-author .required,
 #respond .comment-form-email .required {
 	color: #bd3500;
 	font-size: 22px;
 	font-weight: bold;
-	left: 75%;
+	left: 74%;
 	position: absolute;
-	top: 45px;
+	top: 40px;
 	z-index: 1;
 }
 #respond .comment-notes,
 #respond .logged-in-as {
 	font-size: 13px;
 }
+
 #respond p {
 	margin: 10px 0;
 }
-#respond .form-submit {
+#respond .form-submit 
+{
+	display: block;
+    background: transparent url('images/button-right.png') right no-repeat;
+    float: left;
+    padding-right: 19px;
+    text-decoration: none;
+    height: 30px;
+    font-size: 12px;
+    font-weight: bold;
 	float: right;
-	margin: -20px 0 10px;
-}
-#respond input#submit {
-	background: #222;
-	border: none;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-	-webkit-box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
-	-moz-box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
-	box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
-	color: #eee;
 	cursor: pointer;
-	font-size: 15px;
-	margin: 20px 0;
-	padding: 5px 42px 5px 22px;
-	position: relative;
-	left: 30px;
-	text-shadow: 0 -1px 0 rgba(0,0,0,0.3);
 }
-#respond input#submit:active {
-	background: #1982d1;
-	color: #bfddf3;
+
+#respond input#submit
+{
+	display: block;
+    background: transparent url('images/button-bkg.png') left no-repeat;
+    line-height: 30px;
+	height: 30px;
+    padding: 0 0 2px 19px;
+	border: none;
+	margin: 0;
+	color: #48883B;
+	font-weight: bold;
+	cursor: pointer;
 }
+
+#respond input#submit:active, #respond input#submit:hover
+{
+	color: #CB8704;
+}
+
 #respond #cancel-comment-reply-link {
 	color: #666;
 	margin-left: 10px;
