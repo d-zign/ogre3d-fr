@@ -425,7 +425,6 @@ a.read-more-button, a.more-link
     float: right;
     margin-left: 20px;
     background: #f5f5f5 url('images/mainpage-titles-bkg.png') repeat-x top;
-    
 }
 
 #main_page_content #latest-news h2
@@ -461,10 +460,11 @@ p.no-content-msg
 {
 	float: right;
     margin-top: 15px;
-	margin-left: 19px;
-	width: 248px;
-    border-left: solid 3px #ddd;
-    padding: 10px 15px;
+	margin-left: 4px;
+	width: 228px;
+    /*border-left: solid 3px #ddd;*/
+    padding: 10px 15px 10px 50px;
+	background: url(images/sidebar-bkg.png) repeat-y;
 }
 
 #secondary ul
@@ -867,7 +867,8 @@ textarea {
 input[type=text] {
 	padding: 3px;
 }
-input#s {
+input#s
+{
 	background: url(images/search.png) no-repeat 5px 6px;
 	-moz-border-radius: 2px;
 	border-radius: 2px;
@@ -876,7 +877,8 @@ input#s {
 	line-height: 1.2em;
 	padding: 4px 10px 4px 28px;
 }
-input#searchsubmit {
+input#searchsubmit
+{
 	display: none;
 }
 
@@ -2160,28 +2162,17 @@ section.recent-posts .other-recent-posts li:after {
 .widget_search form {
 	margin: 0 0 1.625em;
 }
-.widget_search #s {
-	width: 77%;
-}
-.widget_search #searchsubmit {
-	background: #ddd;
+.widget_search #s
+{
+	width: 208px;
 	border: 1px solid #ccc;
-	-webkit-box-shadow: inset 0px -1px 1px rgba(0, 0, 0, 0.09);
-	-moz-box-shadow: inset 0px -1px 1px rgba(0, 0, 0, 0.09);
-	box-shadow: inset 0px -1px 1px rgba(0, 0, 0, 0.09);
-	color: #888;
-	font-size: 13px;
-	line-height: 25px;
-	position: relative;
-	top: -2px;
+	background-color: #eee;
+	color: black;
 }
-.widget_search #searchsubmit:active {
-	background: #1982d1;
-	border-color: #0861a5;
-	-webkit-box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.1);
-	-moz-box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.1);
-	box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.1);
-	color: #bfddf3;
+
+.widget_search #s:focus
+{
+	background-color: white;
 }
 
 /* Ephemera Widget */
