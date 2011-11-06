@@ -17,14 +17,15 @@
 
 	<?php if ( bbp_current_user_can_access_create_reply_form() ) : ?>
 
+        <div class="new-reply-arrow"></div>
 		<div id="new-reply-<?php bbp_topic_id(); ?>" class="bbp-reply-form">
 
+            <h2 id="edit-reply-title"><?php printf( __( 'Reply To: %s', 'bbpress' ), bbp_get_topic_title() ); ?></h2>
 			<form id="new-post" name="new-post" method="post" action="">
 
 				<?php do_action( 'bbp_theme_before_reply_form' ); ?>
 
 				<fieldset class="bbp-form">
-					<legend><?php printf( __( 'Reply To: %s', 'bbpress' ), bbp_get_topic_title() ); ?></legend>
 
 					<?php do_action( 'bbp_theme_before_reply_form_notices' ); ?>
 
@@ -53,7 +54,7 @@
 						<?php do_action( 'bbp_theme_before_reply_form_content' ); ?>
 
 						<p>
-							<label for="bbp_reply_content"><?php _e( 'Reply:', 'bbpress' ); ?></label><br />
+							<?php do_action( 'bbp_post_toolbar_insertion' ); ?>
 							<textarea id="bbp_reply_content" tabindex="<?php bbp_tab_index(); ?>" name="bbp_reply_content" rows="6"><?php bbp_form_reply_content(); ?></textarea>
 						</p>
 
@@ -132,7 +133,9 @@
 
 							<?php do_action( 'bbp_theme_before_reply_form_submit_button' ); ?>
 
-							<button type="submit" tabindex="<?php bbp_tab_index(); ?>" id="bbp_reply_submit" name="bbp_reply_submit"><?php _e( 'Submit', 'bbpress' ); ?></button>
+                            <div id="submit-topic">
+							    <input class="roundbutton" type="submit" tabindex="<?php bbp_tab_index(); ?>" id="bbp_reply_submit" name="bbp_reply_submit" value="<?php _e( 'Submit', 'bbpress' ); ?>"></input>
+                            </div>
 
 							<?php do_action( 'bbp_theme_after_reply_form_submit_button' ); ?>
 
