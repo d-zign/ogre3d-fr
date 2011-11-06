@@ -87,7 +87,7 @@
 			        </div>
                     <?php else: ?>
 
-                        <?php wp_loginout(); ?>
+                        <?php wp_loginout(get_permalink()); ?>
                         <?php wp_register(); ?>
 
                     <?php endif; ?>
