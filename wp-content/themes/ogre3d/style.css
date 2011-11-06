@@ -99,11 +99,13 @@ a.roundbutton, a.more-link
     display: block;
     background: transparent url('images/button-right.png') right no-repeat;
     float: left;
-    padding-right: 19px;
+    padding: 0 19px 0 0;
     text-decoration: none;
+    line-height: 30px;
     height: 30px;
     font-size: 12px;
     font-weight: bold;
+    border: none;
 }
 
 a.roundbutton span, a.more-link span
@@ -111,7 +113,44 @@ a.roundbutton span, a.more-link span
     display: block;
     background: transparent url('images/button-bkg.png') left no-repeat;
     line-height: 30px;
+    height: 30px;
     padding: 0 0 0 19px;
+    margin: 0;
+}
+
+#submit-topic
+{
+    background: url("images/button-right.png") no-repeat scroll right center transparent;
+    cursor: pointer;
+    display: block;
+    float: right;
+    font-size: 15px;
+    font-weight: bold;
+    height: 30px;
+    padding: 0 19px 0 0;
+    text-decoration: none;
+    margin: 0;
+    border: none;
+    text-align: left;
+}
+
+#submit-topic input
+{
+    background: url("images/button-bkg.png") no-repeat scroll left center transparent;
+    color: #48883B;
+    cursor: pointer;
+    display: block;
+    font-weight: bold;
+    height: 30px;
+    line-height: 30px;
+    margin: 0;
+    padding: 0 0 0 19px;
+    border: none;
+}
+
+#submit-topic input.roundbutton:hover, #submit-topic button.roundbutton:active
+{
+    color: #cb8704;
 }
 
 a.read-more-button, a.more-link
@@ -848,12 +887,10 @@ sub {
 /* Forms */
 input[type=text],
 input[type=password],
-textarea {
-	background: #fafafa;
-	-moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.1);
-	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.1);
-	box-shadow: inset 0 1px 1px rgba(0,0,0,0.1);
-	border: 1px solid #ddd;
+textarea
+{
+	background: white;
+	border: 1px solid #ccc;
 	color: #888;
 }
 input[type=text]:focus,
@@ -2599,6 +2636,51 @@ p.comment-form-comment {
 .bbp-breadcrumb
 {
     font-size: 13px;
+}
+
+.new-topic-arrow
+{
+    background: url("images/new-topic-arrow.png") no-repeat scroll 0 0 transparent;
+    height: 100px;
+    width: 980px;
+}
+
+.bbp-topic-form #edit-topic-title
+{
+    background: url("images/new-topic-title.png") no-repeat scroll 0 0 transparent;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    height: 63px;
+    line-height: 38px;
+    padding: 0 10px;
+    text-shadow: 0.1em 0.1em #333333;
+}
+
+.bbp-topic-form
+{
+    background: url("images/new-topic.png") repeat-y scroll 0 0 transparent;
+    border-bottom: 8px solid black;
+    margin-top: -75px;
+    overflow: auto;
+}
+
+.bbp-topic-form #new-post
+{
+    padding: 0 15px 10px 15px;
+}
+
+textarea#bbp_topic_content
+{
+    width: 945px;
+    margin: 0;
+    border: solid 1px #ccc;
+    background-color: white;
+}
+
+#post-toolbar #buttons
+{
+    background: #ccc;
 }
 
 

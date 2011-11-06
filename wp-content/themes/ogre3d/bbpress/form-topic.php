@@ -25,23 +25,23 @@
 
 	<?php if ( bbp_current_user_can_access_create_topic_form() ) : ?>
 
+        <div class="new-topic-arrow"></div>
 		<div id="new-topic-<?php bbp_topic_id(); ?>" class="bbp-topic-form">
+
+            <h2 id="edit-topic-title">
+                <?php
+					if ( bbp_is_topic_edit() )
+						printf( __( 'Now Editing &ldquo;%s&rdquo;', 'bbpress' ), bbp_get_topic_title() );
+					else
+						bbp_is_single_forum() ? printf( __( 'Create New Topic in &ldquo;%s&rdquo;', 'bbpress' ), bbp_get_forum_title() ) : _e( 'Create New Topic', 'bbpress' );
+				?>
+            </h2>
 
 			<form id="new-post" name="new-post" method="post" action="">
 
 				<?php do_action( 'bbp_theme_before_topic_form' ); ?>
 
 				<fieldset class="bbp-form">
-					<legend>
-
-						<?php
-							if ( bbp_is_topic_edit() )
-								printf( __( 'Now Editing &ldquo;%s&rdquo;', 'bbpress' ), bbp_get_topic_title() );
-							else
-								bbp_is_single_forum() ? printf( __( 'Create New Topic in &ldquo;%s&rdquo;', 'bbpress' ), bbp_get_forum_title() ) : _e( 'Create New Topic', 'bbpress' );
-						?>
-
-					</legend>
 
 					<?php do_action( 'bbp_theme_before_topic_form_notices' ); ?>
 
@@ -70,7 +70,7 @@
 						<?php do_action( 'bbp_theme_before_topic_form_title' ); ?>
 
 						<p>
-							<label for="bbp_topic_title"><?php printf( __( 'Topic Title (Maximum Length: %d):', 'bbpress' ), bbp_get_title_max_length() ); ?></label><br />
+							<label for="bbp_topic_title"><?php echo __( 'Topic Title:', 'ogre' ); ?></label>
 							<input type="text" id="bbp_topic_title" value="<?php bbp_form_topic_title(); ?>" tabindex="<?php bbp_tab_index(); ?>" size="40" name="bbp_topic_title" maxlength="<?php bbp_title_max_length(); ?>" />
 						</p>
 
@@ -79,7 +79,7 @@
 						<?php do_action( 'bbp_theme_before_topic_form_content' ); ?>
 
 						<p>
-							<label for="bbp_topic_content"><?php _e( 'Topic Description:', 'bbpress' ); ?></label><br />
+                            <?php do_action( 'bbp_post_toolbar_insertion' ); ?>
 							<textarea id="bbp_topic_content" tabindex="<?php bbp_tab_index(); ?>" name="bbp_topic_content" cols="60" rows="6"><?php bbp_form_topic_content(); ?></textarea>
 						</p>
 
@@ -181,7 +181,9 @@
 
 							<?php do_action( 'bbp_theme_before_topic_form_submit_button' ); ?>
 
-							<button type="submit" tabindex="<?php bbp_tab_index(); ?>" id="bbp_topic_submit" name="bbp_topic_submit"><?php _e( 'Submit', 'bbpress' ); ?></button>
+                            <div id="submit-topic">
+							    <input class="roundbutton" type="submit" tabindex="<?php bbp_tab_index(); ?>" id="bbp_topic_submit" name="bbp_topic_submit" value="<?php _e( 'Submit', 'bbpress' ); ?>"></input>
+                            </div>
 
 							<?php do_action( 'bbp_theme_after_topic_form_submit_button' ); ?>
 
