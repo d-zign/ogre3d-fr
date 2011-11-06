@@ -68,7 +68,7 @@
 				        <a href="<?php bbp_user_profile_url( bbp_get_current_user_id() ); ?>" class="submit user-submit"><?php echo get_avatar( bbp_get_current_user_id(), '40' ); ?></a>
 				        <h4><?php bbp_user_profile_link( bbp_get_current_user_id() ); ?></h4>
 
-				        <?php bbp_logout_link(); ?>
+				        <?php bbp_logout_link(get_permalink()); ?>
 
                         <?php
                         global $wpdb, $current_user;
