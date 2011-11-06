@@ -12,8 +12,7 @@
 <?php get_header(); ?>
 <div id="container">
     <div class="centered">
-		<div id="container">
-			<div id="content" role="main">
+	    <div id="content" role="main">
 
 				<?php do_action( 'bbp_template_notices' ); ?>
 
@@ -39,7 +38,5 @@
 				<?php endif; ?>
 
 			</div><!-- #content -->
-		</div><!-- #container -->
 
-<?php get_sidebar(); ?>
 <?php get_footer(); ?>
