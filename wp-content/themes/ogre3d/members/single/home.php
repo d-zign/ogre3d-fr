@@ -23,7 +23,7 @@
 
 			</div><!-- #item-header -->
 
-			<div id="item-nav">
+			<!--<div id="item-nav">
 				<div class="item-list-tabs no-ajax" id="object-nav" role="navigation">
 					<ul>
 
@@ -33,7 +33,7 @@
 
 					</ul>
 				</div>
-			</div><!-- #item-nav -->
+			</div>--><!-- #item-nav -->
 
 			<div id="item-body">
 
