@@ -27,7 +27,7 @@
 
 	<tr id="post-<?php bbp_reply_id(); ?>" <?php bbp_reply_class(); ?>>
 
-		<td class="bbp-reply-author">
+		<td class="bbp-reply-author" width="180">
 
 			<?php do_action( 'bbp_theme_before_reply_author_details' ); ?>
 

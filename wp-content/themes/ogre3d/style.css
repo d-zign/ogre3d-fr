@@ -3213,13 +3213,35 @@ table tr.bbp-reply-header td
 }
 
 
-/* ----------------------------------------------- */
-/*           FORUM : PAGE UTILISATEUR              */
-/* ----------------------------------------------- */
+/* --------------------------------------- */
+/*           PAGE UTILISATEUR              */
+/* --------------------------------------- */
 
 .bbp-single-user .edit_user_link
 {
     float: right;
+}
+
+.profile-fields tr.field_name
+{
+	padding-bottom: 10px;
+}
+
+.profile-fields td.label
+{
+	font-weight: normal;
+	border: none;
+	padding-right: 20px;
+}
+
+.profile-fields td.data p
+{
+	margin: 0;
+}
+
+.syntaxhighlighter .gutter .line
+{
+    border-right: 3px solid red !important;
 }
 
 
