@@ -22,7 +22,7 @@
 define('DB_NAME', 'ogredfr_main');
 
 /** Utilisateur de la base de données MySQL. */
-define('DB_USER', 'ogredfr_ogredfr');
+define('DB_USER', 'root');
 
 /** Mot de passe de la base de données MySQL. */
 define('DB_PASSWORD', '');

@@ -244,6 +244,13 @@ a.read-more-button, a.more-link
     font-size: 13px;
 }
 
+#header #login-widget ul
+{
+    float: left;
+	margin: 0;
+	padding: 0;
+}
+
 #header #login-widget legend
 {
     display: none;
@@ -273,6 +280,15 @@ a.read-more-button, a.more-link
 #header #login-widget a:hover
 {
     color: #f9c026;
+}
+
+#login-widget #my-messages span
+{
+	background-color: #444;
+	padding: 3px 5px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
 }
 
 /* ----------------------------------------------- */
