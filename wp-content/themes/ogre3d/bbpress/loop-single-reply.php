@@ -12,8 +12,10 @@
 	<tr class="bbp-reply-header">
 		<td colspan="2">
 
-			<a href="<?php bbp_reply_url(); ?>" title="<?php echo "n&deg;" . bbp_get_reply_id() ?>" class="bbp-reply-permalink">#<?php bbp_reply_id(); ?></a>
-		
+			<a href="<?php bbp_reply_url(); ?>" title="<?php echo "n&deg;" . bbp_get_reply_id() ?>" class="bbp-reply-permalink">
+				<img src="<?php echo get_bloginfo('template_directory') . '/images/post.png'; ?>" />
+			</a>
+
 			<?php printf( __( 'Posted on %1$s at %2$s', 'bbpress' ), get_the_date('d-m-Y'), esc_attr( get_the_time('h:m:s') ) ); ?>
 
 			<?php do_action( 'bbp_theme_before_reply_admin_links' ); ?>
