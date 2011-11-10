@@ -73,6 +73,12 @@ if ( ! function_exists( 'twentyeleven_setup' ) ):
  */
 function twentyeleven_setup() {
 
+	wp_register_style('syntaxhighlighter-theme-ogre',
+		content_url('themes/ogre3d/syntaxhighlighter-theme.css'),
+		array( 'syntaxhighlighter-core' ),
+		'0.9.0'
+	);
+	
 	/* Make Twenty Eleven available for translation.
 	 * Translations can be added to the /languages/ directory.
 	 * If you're building a theme based on Twenty Eleven, use a find and replace
@@ -113,6 +119,14 @@ function twentyeleven_setup() {
     add_action( 'after_setup_theme', 'bbp_twentyten_setup' );
 }
 endif; // twentyeleven_setup
+
+add_filter( 'syntaxhighlighter_themes', 'add_syntaxhighlighter_theme' );
+ 
+function add_syntaxhighlighter_theme( $themes )
+{
+    $themes['ogre'] = 'Ogre3dfr';
+    return $themes;
+}
 
 /**
  * Sets the post excerpt length to 40 words.
