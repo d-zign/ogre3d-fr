@@ -2,12 +2,18 @@
 
 // Add panel entry to toolbar:
 add_filter( 'bbp_5o1_toolbar_add_items' , array('bbp_5o1_toolbar_format', 'entry'), 0 );
-add_filter( 'bbp_5o1_toolbar_add_items' , array('bbp_5o1_toolbar_format', 'close_tags_entry'), 999 );
-add_action( 'bbp_head', array('bbp_5o1_toolbar_format', 'color_style') );
+add_filter( 'bbp_5o1_toolbar_add_items' , array('bbp_5o1_toolbar_format', 'close_tags_entry'), 990 );
 
+add_action( 'bbp_5o1_toolbar_css', array('bbp_5o1_toolbar_format', 'color_style') );
 
-// add_filter( 'bbp_get_reply_content', array('bbp_5o1_toolbar_format', 'add_code_shortcode'), -999 );
-// add_shortcode( 'code', array('bbp_5o1_toolbar_format', 'do_code') );
+//add_filter( 'bbp_get_reply_content', array('bbp_5o1_toolbar_format', 'add_code_shortcode'), -999 );
+//add_filter( 'the_content', array('bbp_5o1_toolbar_format', 'add_code_shortcode'), -999 );
+//add_shortcode( 'code', array('bbp_5o1_toolbar_format', 'do_code') );
+//add_filter( 'bbp_get_reply_content', array('bbp_5o1_toolbar_format', 'decode_magic_code_shortcode'), 999 );
+//add_filter( 'the_content', array('bbp_5o1_toolbar_format', 'decode_magic_code_shortcode'), 999 );
+
+if ( !isset($magic_code_shortcode_content_array) )
+	$magic_code_shortcode_content_array = array();
 
 class bbp_5o1_toolbar_format {
 
@@ -19,14 +25,21 @@ class bbp_5o1_toolbar_format {
 		$tagregexp = join( '|', array_map('preg_quote', $tagnames) );
 		$pattern = '(.?)\[('.$tagregexp.')\b(.*?)(?:(\/))?\](?:(.+?)\[\/\2\])?(.?)';
 		// This allows it to pick up the HTML <code> tag.
-		//$content = str_replace( array('<code>', '</code>'), array('[code]', '[/code]'), $content);
+		// $content = preg_replace( array('/\<code(\ title\=\"[^"]*\")?\>/', '/\<\/code\>/'), array('[code$1]', '[/code]'), $content );
 		return preg_replace_callback('/'.$pattern.'/s', 'do_shortcode_tag',  $content);
 	}
-	
+
 	function do_code( $atts = null, $content = null ) {
+		global $magic_code_shortcode_content_array;
 		extract(shortcode_atts(array(
 			'title' => 'arbitrary',
+			'numbered' => 'true',
 		), $atts));
+		if ($numbered == 'true' || $numbered == 'numbered' || $numbered == 'yes') { $numbered = true; } else { $numbered = false; }
+		$title = trim( $title );
+		if ( empty($title) ) $title = 'arbitrary';
+		$content = trim( $content );
+		if ( empty($content) ) return '&#91;code' . (($title == 'arbitrary')?'':' title="' . $title . '"') . '&#93;';
 		$count = substr_count( $content, "\n" );
 		$numbers = '';
 		for ($i = 0; $i <= $count; $i++) {
@@ -36,71 +49,76 @@ class bbp_5o1_toolbar_format {
 		$numid = str_replace('line', 'num', $id);
 		$content = str_replace( array('<', '>', '[', ']'), array('&lt;', '&gt;', '&#91;', '&#93;'), $content );
 		$content = str_replace(array("\t","  "), array("&nbsp;&nbsp;", "&nbsp;&nbsp;"), $content);
+		$magic_code_shortcode_content_array[md5($content)] = $content;
+		$content = md5($content);
 		$js = 'document.getElementById(\'' . $numid . '\').scrollTop = this.scrollTop; this.scrollTop =  document.getElementById(\'' . $numid . '\').scrollTop;';
-		return '<div class="code-main"><div class="code-title"><span>&nbsp;<strong>Code:</strong> '.$title.' </span><span style="float: right;">(<a onclick="fnSelect(\'' . $id . '\');">select</a>)</span></div><div class="code-num" id="' . $numid . '">' . $numbers . '</div><div class="code-line" onscroll="'.$js.'" id="' . $id . '">' . $content . '</div><div style="clear:both;"></div></div>';
+		if ( $count == 0 ) {
+			return (($numbered == true)?'<span class="code-inline">1.</span>&nbsp;&nbsp;':'') . '<span class="code-inline">' . $content . '</span>';
+		} else {
+			$s = '<div class="code-main">'
+			.	'<div class="code-title">'
+			.	'<span>&nbsp;<strong>Code:</strong> '.$title.' </span><span class="noselect" style="float: right;">(<a onclick="fnSelect(\'' . $id . '\');">select</a>)&nbsp;</span>'
+			.	'</div>'
+			.	(($numbered == true)?'<div class="code-num" id="' . $numid . '">' . $numbers . '<br /><br /></div>':'')
+			.	'<div class="code-content"' . (($numbered == true)?' style="border-left: solid 1px #e5e5e5;" onscroll="'.$js.'"':'') . ' id="' . $id . '">' . $content . (($numbered == true)?'<br /><br />':'') . '</div>'
+			.	'<div style="clear:both;"></div></div>';
+			return $s;
+		}
 	}
-	
+
+	function decode_magic_code_shortcode($content) {
+		global $magic_code_shortcode_content_array;
+		if ( !isset( $magic_code_shortcode_content_array ) or empty( $magic_code_shortcode_content_array ) )
+			return $content;
+		foreach ($magic_code_shortcode_content_array as $key => $value) {
+			$value = str_replace(array("\n"), array("<br />"), $value);
+			$content = str_replace($key, $value, $content);
+		}
+		return $content;
+	}
+
 	function code_style() {
 		return <<<STYLE
-div.code-title {
-	width: 99.25%;
-	font-family: monospace;
-	margin: 0;
-	padding: 0;
-	background-color: #e5e5e5;
-	border: solid 1px #e5e5e5;
-	border-bottom: none;
-}
-
-div.code-num {
-	text-align: right;
-	width: 7%;
-	float: left;
-	margin: 0 0 1.42em;
-	padding: 0.25em 0 1.0em;
-	display: inline-block;
-	white-space: nowrap;
-	font-family: monospace;
-	border-bottom: solid 1px #e5e5e5;
-	background-color: #e5e5e5;
-	overflow: hidden;
-}
-
-div.code-line {
-	width: 92.5%;
-	float: left;
-	display: inline-block;
-	margin: 0 0 1.42em;
-	padding: 0.25em 0 1.0em;
-	border: solid 1px #e5e5e5;
-	border-top: none;
-	background-color: #f9f9f9;
-	white-space: nowrap;
-	font-family: monospace;
-	overflow: hidden;
-}
-
-div.code-num,
-div.code-line {
-	max-height: 400px;
-}
-
+div.code-main .noselect { cursor: pointer; -webkit-user-select: none;-khtml-user-select: none;-moz-user-select: none;-o-user-select: none; user-select: none; }
+span.code-inline { background-color: #f5f5f5; font-family: monospace; font-size: 0.9em; white-space: pre-wrap; padding: 2px 3px; }
 div.code-main {
-	margin: 5px 0;
-	padding: 0;
+	font-size: 0.9em;
+	-webkit-border-radius: 3px;-khtml-border-radius: 3px;-moz-border-radius: 3px;-o-border-radius: 3px; border-radius: 3px;
+	border: solid 1px #e5e5e5;
+	padding: 0; margin: 1em;
+	background-color: #f5f5f5;
 }
-
-div.code-main:hover .code-num {
+div.code-main div.code-title {
+	font-family: monospace;
+	height: 1.70em; line-height: 1.70em; padding: 0; margin: 0;
+	border-bottom: solid 1px #e5e5e5;
+	background-color: #f3f3f3;
 }
-
-div.code-main:hover .code-line {
-	overflow-y: auto;
-	overflow-x: scroll;
-	margin: 0;
+div.code-main div.code-num {
+	background-color: #f5f5f5;
+	border: none;
+	font-family: monospace;
+	white-space: nowrap;
+	line-height: 1.4em; padding: 0.5em 0.2em; margin: 0;
+	float: left;
+	overflow: hidden;
+}
+div.code-main div.code-content {
+	font-family: monospace;
+	white-space: nowrap;
+	background-color: #f9f9f9;
+	line-height: 1.4em; padding: 0.5em; margin: 0;
+	border: none;
+	overflow-y: auto; overflow-x: auto;
+}
+div.code-main div.code-content,
+div.code-main div.code-num {
+	max-height: 400px;
+	/*padding-bottom: 1.4em;*/
 }
 STYLE;
 	}
-	
+
 	function close_tags_entry($items) {
 		$items[] = array( 'action' => 'api_item',
 			'inside_anchor' => '<small title="Close HTML Tags">&lt;/&gt;</small>',
@@ -109,7 +127,7 @@ STYLE;
 	}
 
 	function entry($items) {
-	
+
 		$items[] = array( 'action' => 'api_item',
 						 'inside_anchor' => '<img src="' . plugins_url( '/images/bold.png', __FILE__ ) . '" title="Bold" alt="Bold" />',
 						 'data' => "function(stack){insertHTML(stack, 'strong', []);}");
@@ -141,19 +159,15 @@ STYLE;
 						  'data' => "function(stack){insertHTML(stack, 'blockquote', []);}");
 		$items[] = array( 'action' => 'api_item',
 						  'inside_anchor' => '<img src="' . plugins_url( '/images/code.png', __FILE__ ) . '" title="Code" alt="Code" />',
-						  'data' => "function(stack){insertHTML(stack, 'code', []);}");
+						  'data' => "function(stack){insertShortcode(stack, 'code', [['title','']]);}");
 		$items[] = array( 'action' => 'switch_panel',
 						 'inside_anchor' => '<img src="' . plugins_url( '/images/fontcolor.png', __FILE__ ) . '" title="Color" alt="Color" />',
 						 'panel' => 'color',
 						 'data' => bbp_5o1_toolbar_format::color_formatting());
 		$items[] = array( 'action' => 'switch_panel',
-						 'inside_anchor' => '<img src="' . plugins_url( '/images/font.png', __FILE__ ) . '" title="Size" alt="Size" />',
+						 'inside_anchor' => '<img src="' . plugins_url( '/images/font.png', __FILE__ ) . '" title="Font Size & Face" alt="Font Size & Face" />',
 						 'panel' => 'size',
 						 'data' => bbp_5o1_toolbar_format::size_formatting());
-		$items[] = array( 'action' => 'switch_panel',
-						 'inside_anchor' => '<img src="' . plugins_url( '/images/font.png', __FILE__ ) . '" title="Font Face" alt="Font" />',
-						 'panel' => 'font',
-						 'data' => bbp_5o1_toolbar_format::font_formatting());
 		$items[] = array( 'action' => 'switch_panel',
 						 'inside_anchor' => '<img src="' . plugins_url( '/images/link.png', __FILE__ ) . '" title="Link" alt="Link" />',
 						 'panel' => 'links',
@@ -164,24 +178,7 @@ STYLE;
 <a class="toolbar-apply" style="margin-top: 1.4em;" onclick="insert_panel(\'link\');">Apply Link</a>');
 		return $items;
 	}
-	
-	function font_formatting() {
-		$fonts[] = "Arial";
-		$fonts[] = "'Comic Sans MS'";
-		$fonts[] = "Courier";
-		$fonts[] = "Georgia";
-		$fonts[] = "Helvetica";
-		$fonts[] = "'Times New Roman'";
-		$fonts[] = "Ubuntu";
-		$fonts[] = "Verdana";
 
-		$html = '';
-		foreach ($fonts as $font) {
-			$html .= '<a title="' . $font . '" onclick="insert_font(\'' . addslashes($font) . '\');" style="cursor: pointer; display: inline-block; margin:0 0.5em;font-family:' . $font . '; font-size: 1.4em;">' . $font . '</a> ';
-		}
-		return '<div style="text-align: center;">' . $html . '</div>';
-	}
-	
 	function colors() {
 		$colors[] = 'Red';
 		$colors[] = 'Green';
@@ -197,7 +194,7 @@ STYLE;
 		$colors[] = 'Violet';
 		return $colors;
 	}
-	
+
 	function color_formatting() {
 		$colors = bbp_5o1_toolbar_format::colors();
 		$html = '';
@@ -208,11 +205,10 @@ STYLE;
 		$chooser = '<div style="background:' . strtolower($color) . ';" class="color-chooser">' . $html . "</div>";
 		return "<strong>Pick a color, any color... as long as it's black.</strong>" . $chooser;
 	}
-	
+
 	function color_style() {
 		$colors = bbp_5o1_toolbar_format::colors();
 	 ?>
-<style type="text/css">/*<![CDATA[*/
 #post-toolbar .panel .color-choice,
 #post-toolbar .panel .color-choice-no {
 	width: <?php echo ( (1/(count($colors)+1))*100 ); ?>%;
@@ -223,11 +219,9 @@ STYLE;
 }
 
 <?php echo bbp_5o1_toolbar_format::code_style(); ?>
-
-/*]]>*/</style>
 	 <?php
 	}
-	
+
 	function size_formatting() {
 		$sizes[] = "xx-small";
 		$sizes[] = "x-small";
@@ -239,9 +233,23 @@ STYLE;
 		foreach ($sizes as $size) {
 			$html .= '<a class="size" onclick="insert_size(\'' . $size . '\');" style="font-size:' . $size . ';">' . $size . '</a>';
 		}
-		return '<div style="line-height: 50px;text-align:center;">' . $html . '</div>';
-	}
-	
-}
 
+		$html .= '<br /><br />';
+
+		$fonts[] = "Arial";
+		$fonts[] = "'Comic Sans MS'";
+		$fonts[] = "Courier";
+		$fonts[] = "Georgia";
+		$fonts[] = "Helvetica";
+		$fonts[] = "'Times New Roman'";
+		$fonts[] = "Ubuntu";
+		$fonts[] = "Verdana";
+
+		foreach ($fonts as $font) {
+			$html .= '<a title="' . $font . '" onclick="insert_font(\'' . addslashes($font) . '\');" style="cursor: pointer; display: inline-block; margin:0 0.5em;font-family:' . $font . '; font-size: 1.4em;">' . $font . '</a> ';
+		}
+		return '<div style="text-align: center;">' . $html . '</div>';
+	}
+
+}
 ?>

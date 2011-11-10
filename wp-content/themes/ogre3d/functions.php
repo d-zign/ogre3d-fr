@@ -444,3 +444,26 @@ function ogre_get_reply_revision_log( $reply_id = 0 ) {
 	return $r;
 }
 add_filter( 'bbp_get_reply_revision_log', 'ogre_get_reply_revision_log' );
+
+// Ajout des BBCodes à la barre d'outils
+function ogre_toolbar_add_items($items)
+{
+	$items[] = array('action' => 'api_item',
+					 'inside_anchor' => '<img src="' . get_bloginfo('template_directory') . '/images/toolbar/text_bold.png' . '" title="' . __("Bold", "ogre") . '" alt="' . __("Bold", "ogre") . '" />',
+					 'data' => "function(stack){insert_shortcode('b');}");
+					 
+	$items[] = array('action' => 'api_item',
+					 'inside_anchor' => '<img src="' . get_bloginfo('template_directory') . '/images/toolbar/text_italic.png' . '" title="' . __("Italic", "ogre") . '" alt="' . __("Italic", "ogre") . '" />',
+					 'data' => "function(stack){insert_shortcode('i');}");
+					 
+	$items[] = array('action' => 'api_item',
+					 'inside_anchor' => '<img src="' . get_bloginfo('template_directory') . '/images/toolbar/text_underline.png' . '" title="' . __("Underline", "ogre") . '" alt="' . __("Underline", "ogre") . '" />',
+					 'data' => "function(stack){insert_shortcode('u');}");
+					 
+	$items[] = array('action' => 'api_item',
+					 'inside_anchor' => '<img src="' . get_bloginfo('template_directory') . '/images/toolbar/text_strikethrough.png' . '" title="' . __("Strike", "ogre") . '" alt="' . __("Strike", "ogre") . '" />',
+					 'data' => "function(stack){insert_shortcode('strike');}");
+
+	return $items;
+}
+add_filter( 'bbp_5o1_toolbar_add_items' , 'ogre_toolbar_add_items', 0);
