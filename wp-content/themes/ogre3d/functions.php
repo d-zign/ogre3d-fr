@@ -120,13 +120,12 @@ function twentyeleven_setup() {
 }
 endif; // twentyeleven_setup
 
-add_filter( 'syntaxhighlighter_themes', 'add_syntaxhighlighter_theme' );
- 
 function add_syntaxhighlighter_theme( $themes )
 {
     $themes['ogre'] = 'Ogre3dfr';
     return $themes;
 }
+add_filter( 'syntaxhighlighter_themes', 'add_syntaxhighlighter_theme' );
 
 /**
  * Sets the post excerpt length to 40 words.
@@ -403,3 +402,45 @@ function twentyeleven_body_classes( $classes ) {
 }
 add_filter( 'body_class', 'twentyeleven_body_classes' );
 
+function ogre_get_reply_revision_log( $reply_id = 0 ) {
+
+	// Create necessary variables
+	$reply_id     = bbp_get_reply_id( $reply_id );
+	$revision_log = bbp_get_reply_raw_revision_log( $reply_id );
+
+	// Check reply and revision log exist
+	if ( empty( $reply_id ) || empty( $revision_log ) || !is_array( $revision_log ) )
+		return false;
+
+	// Get the actual revisions
+	if ( !$revisions = bbp_get_reply_revisions( $reply_id ) )
+		return false;
+
+	$r = "\n\n" . '<div id="bbp-reply-revision-log-' . $reply_id . '" class="bbp-reply-revision-log">';
+
+	$revision = array_pop($revisions);
+	
+	if ($revision)
+	{
+		if ( empty( $revision_log[$revision->ID] ) )
+		{
+				$author_id = $revision->post_author;
+				$reason    = '';
+		} else {
+			$author_id = $revision_log[$revision->ID]['author'];
+			$reason    = $revision_log[$revision->ID]['reason'];
+		}
+
+		$author = bbp_get_author_link( array( 'size' => 14, 'link_text' => bbp_get_reply_author_display_name( $revision->ID ), 'post_id' => $revision->ID, 'type' => 'name') );
+		$since  = bbp_get_time_since( bbp_convert_date( $revision->post_modified ) );
+
+		$r .= "\t" . '<span id="bbp-reply-revision-log-' . $reply_id . '-item-' . $revision->ID . '" class="bbp-reply-revision-log-item">';
+			$r .= "\t\t" . sprintf( __( empty( $reason ) ? 'This reply was last modified %1$s ago by %2$s.' : 'This reply was last modified %1$s ago by %2$s. Reason: %3$s', 'bbpress' ), $since, $author, $reason );
+		$r .= "\t" . '</span>';
+		
+		$r .= "</div>";
+	}
+
+	return $r;
+}
+add_filter( 'bbp_get_reply_revision_log', 'ogre_get_reply_revision_log' );

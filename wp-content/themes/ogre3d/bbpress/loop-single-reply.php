@@ -12,9 +12,9 @@
 	<tr class="bbp-reply-header">
 		<td colspan="2">
 
-			<?php printf( __( '%1$s at %2$s', 'bbpress' ), get_the_date(), esc_attr( get_the_time() ) ); ?>
-
-			<a href="<?php bbp_reply_url(); ?>" title="<?php bbp_reply_title(); ?>" class="bbp-reply-permalink">#<?php bbp_reply_id(); ?></a>
+			<a href="<?php bbp_reply_url(); ?>" title="<?php echo "n&deg;" . bbp_get_reply_id() ?>" class="bbp-reply-permalink">#<?php bbp_reply_id(); ?></a>
+		
+			<?php printf( __( 'Posted on %1$s at %2$s', 'bbpress' ), get_the_date('d-m-Y'), esc_attr( get_the_time('h:m:s') ) ); ?>
 
 			<?php do_action( 'bbp_theme_before_reply_admin_links' ); ?>
 
@@ -31,7 +31,12 @@
 
 			<?php do_action( 'bbp_theme_before_reply_author_details' ); ?>
 
-			<?php bbp_reply_author_link(); ?>
+			<div>
+				<?php bbp_reply_author_link(array('type' => 'name')); ?>
+			</div>
+			<div>
+				<?php bbp_reply_author_link(array('type' => 'avatar')); ?>
+			</div>
 
 			<?php if ( is_super_admin() ) : ?>
 
