@@ -3248,6 +3248,12 @@ table tr.bbp-reply-header td
 	float: right;
 }
 
+.bbp-forum-reply-count, .bbp-forum-topic-count, .bbp-forum-freshness,
+.bbp-topic-voice-count, .bbp-topic-reply-count, .bbp-topic-freshness
+{
+	text-align: center;
+}
+
 /* CSS for bbPress-post-toolbar plugin to WordPress. */
 
 #post-toolbar {
