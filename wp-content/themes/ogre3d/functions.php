@@ -467,3 +467,18 @@ function ogre_toolbar_add_items($items)
 	return $items;
 }
 add_filter( 'bbp_5o1_toolbar_add_items' , 'ogre_toolbar_add_items', 0);
+
+function ogre_nav_class($classes, $item)
+{
+	if (get_post_type() == "wiki" && $item->title == "Wiki")
+	{
+		array_push($classes, 'current-menu-item');
+	}
+	else if ((get_post_type() == "forum" || get_post_type() == "topic") &&  $item->title == "Forum")
+	{
+		array_push($classes, 'current-menu-item');
+	}
+
+	return $classes;
+}
+add_filter('nav_menu_css_class' , 'ogre_nav_class' , 10 , 2);
