@@ -330,7 +330,7 @@ a.read-more-button, a.more-link
     padding: 0 10px;
 }
 
-#navmenu ul li.current_page_item a
+#navmenu ul li.current-menu-item a
 {
     color: #e4f07d;
     background: #ff0000 url('images/menu-bkg.png') repeat-x 0 -47px;
