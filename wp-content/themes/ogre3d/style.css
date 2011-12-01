@@ -75,6 +75,12 @@ h1, h2, h3
     font-weight: bold;
 }
 
+h1
+{
+    font-size: 18px;
+    padding-bottom: 10px;
+}
+
 h2
 {
     font-size: 16px;
@@ -239,7 +245,7 @@ a.read-more-button, a.more-link
 
 #header #login-widget
 {
-    margin: 0 15px;
+    margin: 0 15px 10px;
     color: #7fd23c;
     font-size: 13px;
 }
@@ -3405,7 +3411,14 @@ table tr.bbp-reply-header td
 	-webkit-border-radius: 3px;
 }
 
+/* --------------------------------------- */
+/*               PAGE WIKI                 */
+/* --------------------------------------- */
 
+ul#wpw_tab_nav
+{
+	margin: 0 0 10px 0;
+}
 
 /* --------------------------------------- */
 /*           PAGE UTILISATEUR              */
