@@ -124,7 +124,7 @@ a.roundbutton span, a.more-link span
     margin: 0;
 }
 
-#submit-topic
+#submit-topic, p.roundbutton
 {
     background: url("images/button-right.png") no-repeat scroll right center transparent;
     cursor: pointer;
@@ -140,7 +140,7 @@ a.roundbutton span, a.more-link span
     text-align: left;
 }
 
-#submit-topic input
+#submit-topic input, p.roundbutton input
 {
     background: url("images/button-bkg.png") no-repeat scroll left center transparent;
     color: #48883B;
@@ -154,7 +154,7 @@ a.roundbutton span, a.more-link span
     border: none;
 }
 
-#submit-topic input.roundbutton:hover, #submit-topic button.roundbutton:active
+#submit-topic input.roundbutton:hover, #submit-topic button.roundbutton:active, p.roundbutton:hover input, p.roundbutton input:active
 {
     color: #cb8704;
 }
@@ -908,6 +908,7 @@ sub {
 /* Forms */
 input[type=text],
 input[type=password],
+input[type=file],
 textarea
 {
 	background: white;
@@ -2498,61 +2499,56 @@ a.comment-reply-link > span {
 	overflow: auto;
 }
 
-#respond input[type="text"],
-#respond textarea
+.standard-form input[type="text"],
+.standard-form input[type="password"],
+.standard-form textarea
 {
-	background: #fff;
-	border: 1px solid #ccc;
-	position: relative;
 	padding: 5px;
-	text-indent: 80px;
+	display: block;
+}
+
+.standard-form input[type="text"],
+.standard-form input[type="password"]
+{
+	width: 350px;
 }
 
 #respond .comment-form-author,
 #respond .comment-form-email,
 #respond .comment-form-url,
-#respond .comment-form-comment
+#respond .comment-form-comment,
+#item-body .editfield
 {
 	position: relative;
+	margin: 0;
+	padding: 0;
 }
 
 #respond .comment-form-author label,
 #respond .comment-form-email label,
 #respond .comment-form-url label,
-#respond .comment-form-comment label
+#respond .comment-form-comment label,
+.standard-form label
 {
 	color: #555;
 	display: inline-block;
 	font-size: 13px;
 	font-style: italic;
-	left: 4px;
-	min-width: 60px;
-	padding: 4px 10px;
-	position: relative;
-	top: 35px;
-	z-index: 1;
+	padding: 8px 0px 4px;
 }
 
-#respond input[type="text"]:focus,
-#respond textarea:focus {
-	text-indent: 0;
-	z-index: 1;
-}
-#respond textarea 
+#respond textarea
 {
 	resize: vertical;
 	width: 624px;
 }
 
 #respond .comment-form-author .required,
-#respond .comment-form-email .required {
+#respond .comment-form-email .required
+{
 	color: #bd3500;
-	font-size: 22px;
+	font-size: 18px;
 	font-weight: bold;
-	left: 74%;
-	position: absolute;
-	top: 40px;
-	z-index: 1;
 }
 #respond .comment-notes,
 #respond .logged-in-as {
@@ -2635,11 +2631,7 @@ a.comment-reply-link > span {
 #respond label {
 	line-height: 2.2em;
 }
-#respond input[type=text] {
-	display: block;
-	height: 24px;
-	width: 75%;
-}
+
 #respond p {
 	font-size: 12px;
 }
@@ -3125,6 +3117,7 @@ table.bbp-replies td.bbp-reply-content
 {
     vertical-align: top;
     padding: 10px;
+	font-size: 13px;
 }
 
 table.bbp-forums, table.bbp-topics, table.bbp-replies
@@ -3461,6 +3454,109 @@ ul#wpw_tab_nav
 	margin: 0;
 }
 
+div.item-list-tabs ul
+{
+	margin: 0;
+}
+
+div.item-list-tabs
+{
+	background: #eaeaea;
+	clear: left;
+	margin: 25px -19px 20px -19px;
+	overflow: hidden;
+}
+div.item-list-tabs ul li a {
+	text-decoration: none;
+	height: 20px;
+}
+div.item-list-tabs ul {
+	width: 100%;
+}
+div.item-list-tabs ul li
+{
+	float: left;
+	list-style-type: none;
+	margin: 0 0 0 5px;
+}
+
+div.item-list-tabs ul li.last {
+	float: right;
+	margin: 7px 20px 0 0;
+}
+div.item-list-tabs#subnav ul li.last {
+	margin-top: 4px;
+}
+div.item-list-tabs ul li.last select {
+	max-width: 175px;
+}
+div.item-list-tabs ul li a,
+div.item-list-tabs ul li span {
+	display: block;
+	padding: 5px 10px;
+	text-decoration: none;
+	font-size: 14px;
+}
+div.item-list-tabs ul li a span {
+	background: #1fb3dd;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	color: #fff;
+	display: inline;
+	margin-left: 2px;
+	padding: 1px 6px;
+}
+div.item-list-tabs ul li.selected a,
+div.item-list-tabs ul li.current a
+{
+	color: #555;
+	font-weight: bold;
+}
+div.item-list-tabs ul li.selected a span,
+div.item-list-tabs ul li.current a span,
+div.item-list-tabs ul li a:hover span {
+	background-color: #999;
+}
+div.item-list-tabs ul li.selected a span,
+div.item-list-tabs ul li.current a span {
+	background-color: #555;
+}
+div.item-list-tabs#object-nav
+{
+	margin-top: 0;
+}
+div.item-list-tabs#subnav
+{
+	border: solid 1px #ddd;
+	background: #eee;
+	margin: 0 0 10px 0;
+	overflow: hidden;
+	padding: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+div.item-list-tabs ul li.feed a
+{
+	background: url( ../buddypress/bp-themes/bp-default/_inc/images/rss.png ) center left no-repeat;
+	padding-left: 20px;
+}
+
+#item-body
+{
+	overflow: auto;
+	font-size: 13px;
+}
+
+/* --------------------------------------- */
+/*             ENREGISTREMENT              */
+/* --------------------------------------- */
+
+.register-section
+{
+	margin-bottom: 20px;
+}
 
 /* =IE7
 ----------------------------------------------- */

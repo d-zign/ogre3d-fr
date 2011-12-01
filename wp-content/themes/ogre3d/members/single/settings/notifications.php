@@ -10,7 +10,8 @@
 
 <?php get_header( 'buddypress' ) ?>
 
-	<div id="content">
+<div id="container">
+    <div class="centered">
 		<div class="padder">
 
 			<?php do_action( 'bp_before_member_settings_template' ); ?>
@@ -20,18 +21,6 @@
 				<?php locate_template( array( 'members/single/member-header.php' ), true ); ?>
 
 			</div><!-- #item-header -->
-
-			<div id="item-nav">
-				<div class="item-list-tabs no-ajax" id="object-nav" role="navigation">
-					<ul>
-
-						<?php bp_get_displayed_user_nav(); ?>
-
-						<?php do_action( 'bp_member_options_nav' ); ?>
-
-					</ul>
-				</div>
-			</div><!-- #item-nav -->
 
 			<div id="item-body" role="main">
 
@@ -47,7 +36,7 @@
 					</ul>
 				</div><!-- .item-list-tabs -->
 
-				<h3><?php _e( 'Email Notification', 'buddypress' ); ?></h3>
+				<div class="entry-header"><h2><?php _e( 'Email Notification', 'buddypress' ); ?></h2></div>
 
 				<?php do_action( 'bp_template_content' ) ?>
 
@@ -59,7 +48,7 @@
 					<?php do_action( 'bp_members_notification_settings_before_submit' ); ?>
 
 					<div class="submit">
-						<input type="submit" name="submit" value="<?php _e( 'Save Changes', 'buddypress' ); ?>" id="submit" class="auto" />
+						<p class="roundbutton"><input type="submit" name="submit" value="<?php _e( 'Save Changes', 'buddypress' ); ?>" id="submit" class="auto" /></p>
 					</div>
 
 					<?php do_action( 'bp_members_notification_settings_after_submit' ); ?>
@@ -73,10 +62,6 @@
 			</div><!-- #item-body -->
 
 			<?php do_action( 'bp_after_member_settings_template' ); ?>
-
 		</div><!-- .padder -->
-	</div><!-- #content -->
-
-<?php get_sidebar( 'buddypress' ) ?>
 
 <?php get_footer( 'buddypress' ) ?>
