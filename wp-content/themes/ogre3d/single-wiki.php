@@ -11,14 +11,14 @@ get_header(); ?>
 
 <div id="container">
     <div class="centered">
-			<div id="content" role="main">
+		<div id="content" role="main">
 
-				<?php while ( have_posts() ) : the_post(); ?>
+			<?php while ( have_posts() ) : the_post(); ?>
 
-					<?php get_template_part( 'content', 'single' ); ?>
+				<?php get_template_part( 'content', 'single-wiki' ); ?>
 
-				<?php endwhile; // end of the loop. ?>
+			<?php endwhile; // end of the loop. ?>
 
-			</div><!-- #content -->
+		</div><!-- #content -->
 
 <?php get_footer(); ?>
