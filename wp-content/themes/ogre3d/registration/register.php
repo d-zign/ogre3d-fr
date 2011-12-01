@@ -2,7 +2,6 @@
 
 <div id="container">
     <div class="centered">
-		<div id="content" role="main">
 		<div class="padder">
 
 		<?php do_action( 'bp_before_register_page' ) ?>
@@ -22,7 +21,7 @@
 
 			<?php if ( 'request-details' == bp_get_current_signup_step() ) : ?>
 
-				<h2><?php _e( 'Create an Account', 'buddypress' ) ?></h2>
+				<div class="entry-header"><h1><?php _e( 'Create an Account', 'buddypress' ) ?></h1></div>
 
 				<?php do_action( 'template_notices' ) ?>
 
@@ -34,7 +33,7 @@
 
 					<?php /***** Basic Account Details ******/ ?>
 
-					<h4><?php _e( 'Account Details', 'buddypress' ) ?></h4>
+					<h2><?php _e( 'Account Details', 'buddypress' ) ?></h2>
 
 					<label for="signup_username"><?php _e( 'Username', 'buddypress' ) ?> <?php _e( '(required)', 'buddypress' ) ?></label>
 					<?php do_action( 'bp_signup_username_errors' ) ?>
@@ -64,7 +63,7 @@
 
 					<div class="register-section" id="profile-details-section">
 
-						<h4><?php _e( 'Profile Details', 'buddypress' ) ?></h4>
+						<h2><?php _e( 'Profile Details', 'buddypress' ) ?></h2>
 
 						<?php /* Use the profile field loop to render input fields for the 'base' profile field group */ ?>
 						<?php if ( bp_is_active( 'xprofile' ) ) : if ( bp_has_profile( 'profile_group_id=1' ) ) : while ( bp_profile_groups() ) : bp_the_profile_group(); ?>

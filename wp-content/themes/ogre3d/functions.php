@@ -79,6 +79,13 @@ function twentyeleven_setup() {
 		'0.9.0'
 	);
 	
+	wp_enqueue_style(
+		'bp',
+		content_url('themes/ogre3d/bp.css'),
+		'array of stylesheets it depends on',
+		'1.0'
+	);
+	
 	/* Make Twenty Eleven available for translation.
 	 * Translations can be added to the /languages/ directory.
 	 * If you're building a theme based on Twenty Eleven, use a find and replace

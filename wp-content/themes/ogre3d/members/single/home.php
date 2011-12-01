@@ -11,13 +11,13 @@
 
 <?php get_header( 'buddypress' ); ?>
 
-	<div id="container">
+<div id="container">
     <div class="centered">
 		<div class="padder">
 
 			<?php do_action( 'bp_before_member_home_content' ); ?>
 
-			<div id="item-header" role="complementary">
+			<div id="item-header" role="main">
 
 				<?php locate_template( array( 'members/single/member-header.php' ), true ); ?>
 

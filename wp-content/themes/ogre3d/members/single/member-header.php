@@ -14,7 +14,7 @@
 <div id="item-header-avatar">
 	<a href="<?php bp_user_link(); ?>">
 
-		<?php bp_displayed_user_avatar( 'type=full' ); ?>
+		<?php bp_displayed_user_avatar(array('type' => 'full', 'width' => 80, 'height' => 80)); ?>
 
 	</a>
 </div><!-- #item-header-avatar -->
@@ -41,12 +41,6 @@
 			</div>
 
 		<?php endif; ?>
-
-		<div id="item-buttons">
-
-			<?php do_action( 'bp_member_header_actions' ); ?>
-
-		</div><!-- #item-buttons -->
 
 		<?php
 		/***
