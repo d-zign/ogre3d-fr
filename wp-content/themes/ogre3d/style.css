@@ -3187,6 +3187,20 @@ table.bbp-forums td, table.bbp-topics td, table.bbp-replies td
     margin-bottom: 1px;
 }
 
+td.bbp-forum-info
+{
+	width: 70%;
+	font-size: 13px;
+	font-weight: bold;
+}
+
+table.bbp-forums td p.bbp-forum-description
+{
+	font-size: 11px;
+	color: #666;
+	margin: 0;
+}
+
 table.bbp-forums tfoot td, table.bbp-topics tfoot td, table.bbp-replies tfoot td
 {
     background: #396a41 url('images/list_topics_foot_bkg.png') repeat-x top;
@@ -3196,7 +3210,8 @@ table.bbp-forums tfoot td, table.bbp-topics tfoot td, table.bbp-replies tfoot td
 
 table td.bbp-topic-title
 {
-    font-size: 1.1em;
+    font-size: 13px;
+	font-weight: bold;
     margin-bottom: 0;
 }
 

@@ -41,6 +41,7 @@
 
 								<td class="bbp-forum-info">
 									<a class="bbp-forum-title" href="<?php bbp_forum_permalink($sub_forum->ID); ?>" title="<?php bbp_forum_title($sub_forum->ID); ?>"><?php bbp_forum_title($sub_forum->ID); ?></a>
+									<p class="bbp-forum-description"><?php bbp_forum_content($sub_forum->ID); ?></p>
 								</td>
 								
 								<td class="bbp-forum-topic-count"><?php bbp_forum_topic_count($sub_forum->ID); ?></td>
