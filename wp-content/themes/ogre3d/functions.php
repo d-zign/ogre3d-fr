@@ -351,10 +351,6 @@ function ogre_comment( $comment, $args, $depth ) {
 			</footer>
 
 			<div class="comment-content">
-			<?php if ( $comment->comment_approved == '0' ) : ?>
-				<em class="comment-awaiting-moderation"><?php _e( 'Your comment is awaiting moderation.', 'ogre' ); ?></em>
-				<br />
-			<?php endif; ?>
 			<?php comment_text(); ?>
 			</div>
 
