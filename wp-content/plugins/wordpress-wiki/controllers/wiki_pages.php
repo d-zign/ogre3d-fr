@@ -34,7 +34,7 @@ class WikiPageController {
 					
 					$author = $this->WikiHelper->get_author($revision);
 					
-					$date = date(__('m/d/y g:i a'), mktime($revision->post_modified) );
+					$date = date(__('d/m/y G:i'), strtotime($revision->post_modified));
 					$revision_title = sprintf(__('Revision @ %1s by %2s'), $date, $author);
 					$output.= '<a href="'.get_permalink($post->ID).'?revision='.$revision->ID.'">'.$revision_title.'</a><br />';
 					$count++;	
