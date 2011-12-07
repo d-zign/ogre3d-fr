@@ -308,8 +308,13 @@ class WikiPageController {
 	
 	function save_code($data,$postarr = Array()) {	
 		$regex = '/(?<=^code>|pre>|%%%).+?(?=<\/$1$>)/sm';
+		$data['post_content'] = preg_replace_callback('/\[code.*?\].*?\[\/code.*?\]/sm', array($this, 'codeBlock'),  $data['post_content']);
 		$data['post_content'] = preg_replace_callback($regex, array($this, 'nowiki'),  $data['post_content']);
 		return $data;
+	}
+	
+	function codeBlock($match) {
+		return '<nowiki>'.$match[0].'</nowiki>';
 	}
 	
 	function nowiki($match) {
