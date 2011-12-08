@@ -448,6 +448,35 @@ function ogre_get_reply_revision_log( $reply_id = 0 ) {
 }
 add_filter( 'bbp_get_reply_revision_log', 'ogre_get_reply_revision_log' );
 
+function ogre_get_forum_freshness_link( $forum_id = 0 )
+{
+	$forum_id  = bbp_get_forum_id( $forum_id );
+	$active_id = bbp_get_forum_last_active_id( $forum_id );
+
+	if ( empty( $active_id ) )
+		$active_id = bbp_get_forum_last_reply_id( $forum_id );
+
+	if ( empty( $active_id ) )
+		$active_id = bbp_get_forum_last_topic_id( $forum_id );
+
+	if ( bbp_is_topic( $active_id ) ) {
+		$link_url = bbp_get_forum_last_topic_permalink( $forum_id );
+		$title    = bbp_get_forum_last_topic_title( $forum_id );
+	} elseif ( bbp_is_reply( $active_id ) ) {
+		$link_url = bbp_get_forum_last_reply_url( $forum_id );
+		$title    = bbp_get_forum_last_reply_title( $forum_id );
+	}
+
+	$time_since = bbp_get_forum_last_active_time( $forum_id );
+
+	if ( !empty( $time_since ) && !empty( $link_url ) )
+		$anchor = '<a href="' . $link_url . '" title="' . esc_attr( $title ) . '">' . $time_since . '</a>';
+	else
+		$anchor = '<span class="forum_no_topic">' . __( 'No Topics', 'bbpress' ) . '</span>';
+
+	return apply_filters('bbp_get_forum_freshness_link', $anchor, $forum_id);
+}
+
 // Ajout des BBCodes à la barre d'outils
 function ogre_toolbar_add_items($items)
 {

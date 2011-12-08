@@ -3214,6 +3214,13 @@ table p.bbp-topic-meta
     margin-bottom: 0;
 }
 
+table span.forum_no_topic
+{
+	font-style: italic;
+	font-size: 13px;
+	color: #888;
+}
+
 table td.bbp-reply-author
 {
     padding-top: 5px;

@@ -63,7 +63,7 @@
 
 													<td class="bbp-forum-freshness">
 
-														<?php bbp_forum_freshness_link($sub_forum->ID); ?>
+														<?php echo ogre_get_forum_freshness_link($sub_forum->ID); ?>
 
 														<p class="bbp-topic-meta">
 
