@@ -41,7 +41,7 @@
 
 			<?php do_action( 'bbp_theme_before_forum_freshness_link' ); ?>
 
-			<?php bbp_forum_freshness_link(); ?>
+			<?php echo ogre_get_forum_freshness_link(); ?>
 
 			<?php do_action( 'bbp_theme_after_forum_freshness_link' ); ?>
 
