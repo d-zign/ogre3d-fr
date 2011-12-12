@@ -3275,6 +3275,15 @@ table tr.bbp-reply-header td
 	text-align: center;
 }
 
+div.bbcode-quote
+{
+	padding: 5px;
+	background: none repeat 0 0 #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 13px;
+}
+
 /* CSS for bbPress-post-toolbar plugin to WordPress. */
 
 #post-toolbar {
