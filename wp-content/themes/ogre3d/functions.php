@@ -480,23 +480,41 @@ function ogre_get_forum_freshness_link( $forum_id = 0 )
 // Ajout des BBCodes à la barre d'outils
 function ogre_toolbar_add_items($items)
 {
-	$items[] = array('action' => 'api_item',
+	$result = array();
+	$result[] = array('action' => 'api_item',
 					 'inside_anchor' => '<img src="' . get_bloginfo('template_directory') . '/images/toolbar/text_bold.png' . '" title="' . __("Bold", "ogre") . '" alt="' . __("Bold", "ogre") . '" />',
 					 'data' => "function(stack){insert_shortcode('b');}");
 					 
-	$items[] = array('action' => 'api_item',
+	$result[] = array('action' => 'api_item',
 					 'inside_anchor' => '<img src="' . get_bloginfo('template_directory') . '/images/toolbar/text_italic.png' . '" title="' . __("Italic", "ogre") . '" alt="' . __("Italic", "ogre") . '" />',
 					 'data' => "function(stack){insert_shortcode('i');}");
 					 
-	$items[] = array('action' => 'api_item',
+	$result[] = array('action' => 'api_item',
 					 'inside_anchor' => '<img src="' . get_bloginfo('template_directory') . '/images/toolbar/text_underline.png' . '" title="' . __("Underline", "ogre") . '" alt="' . __("Underline", "ogre") . '" />',
 					 'data' => "function(stack){insert_shortcode('u');}");
 					 
-	$items[] = array('action' => 'api_item',
+	$result[] = array('action' => 'api_item',
 					 'inside_anchor' => '<img src="' . get_bloginfo('template_directory') . '/images/toolbar/text_strikethrough.png' . '" title="' . __("Strike", "ogre") . '" alt="' . __("Strike", "ogre") . '" />',
 					 'data' => "function(stack){insert_shortcode('strike');}");
+					 
+	$result[] = array('action' => 'api_item',
+					 'inside_anchor' => '<img src="' . get_bloginfo('template_directory') . '/images/toolbar/quote.png' . '" title="' . __("Quote", "ogre") . '" alt="' . __("Quote", "ogre") . '" />',
+					 'data' => "function(stack){insert_shortcode('quote');}");
+					 
+	$result[] = array('action' => 'api_item',
+					  'inside_anchor' => '<img src="' . get_bloginfo('template_directory') . '/images/toolbar/code.png' . '" title="' . __("Code", "ogre") . '" alt="' . __("Code", "ogre") . '" />',
+					  'data' => "function(stack){insertShortcode(stack, 'code', [['title','']]);}");
+					 
+	$result[] = array('action' => 'switch_panel',
+					  'inside_anchor' => '<img src="' . get_bloginfo('template_directory') . '/images/toolbar/link.png' . '" title="' . __("Link", "ogre") . '" alt="' . __("Link", "ogre") . '" />',
+					  'panel' => 'links',
+					  'data' => '<div style="width: 310px; display: inline-block;"><span>Link URL:</span><br />
+<input style="display:inline-block;width:300px;" type="text" id="link_url" value="" /></div>
+<div style="width: 310px; display: inline-block;"><span>Link Name: (optional)</span><br />
+<input style="display:inline-block;width:300px;" type="text" id="link_name" value="" /></div>
+<a class="toolbar-apply" style="margin-top: 1.4em;" onclick="insert_panel(\'link\');">Apply Link</a>');
 
-	return $items;
+	return $result;
 }
 add_filter( 'bbp_5o1_toolbar_add_items' , 'ogre_toolbar_add_items', 0);
 
