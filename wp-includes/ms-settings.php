@@ -10,10 +10,6 @@
  * @since 3.0.0
  */
 
-// $base sanity check.
-if ( 'BASE' == $base )
-	die( /*WP_I18N_BASE_ERROR*/'Erreur dans la configuration de <code>wp-config.php</code>. La variable <code>$base</code> contient <code>BASE</code> , alors qu&rsquo;il devrait contenir <code>/</code> ou <code>/blogs/</code>.'/*/WP_I18N_BASE_ERROR*/ );
-
 /** Include Multisite initialization functions */
 require( ABSPATH . WPINC . '/ms-load.php' );
 require( ABSPATH . WPINC . '/ms-default-constants.php' );

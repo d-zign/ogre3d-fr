@@ -791,7 +791,10 @@ function bbp_update_topic( $topic_id = 0, $forum_id = 0, $anonymous_data = false
 function bbp_update_topic_walker( $topic_id, $last_active_time = '', $forum_id = 0, $reply_id = 0, $refresh = true ) {
 
 	// Validate topic_id
-	$topic_id = bbp_get_topic_id( $topic_id );
+	$topic_id  = bbp_get_topic_id( $topic_id );
+
+	// Define local variable(s)
+	$active_id = 0;
 
 	// Topic was passed
 	if ( !empty( $topic_id ) ) {
@@ -880,7 +883,7 @@ function bbp_move_topic_handler( $topic_id, $old_forum_id, $new_forum_id ) {
 
 			// Add non-matches to the updated array
 			if ( $topic_id != $sticky_topic_id ) {
-				$updated_stickies[$k] = $v;
+				$updated_stickies[] = $sticky_topic_id;
 			}
 		}
 
@@ -1824,14 +1827,17 @@ function bbp_toggle_topic_handler() {
 	if ( !in_array( $_GET['action'], $possible_actions ) )
 		return;
 
+	$failure   = '';                         // Empty failure string
 	$view_all  = false;                      // Assume not viewing all
 	$action    = $_GET['action'];            // What action is taking place?
 	$topic_id  = (int) $_GET['topic_id'];    // What's the topic id?
 	$success   = false;                      // Flag
 	$post_data = array( 'ID' => $topic_id ); // Prelim array
+	$redirect  = '';                         // Empty redirect URL
 
 	// Make sure topic exists
-	if ( !$topic = bbp_get_topic( $topic_id ) )
+	$topic = bbp_get_topic( $topic_id );
+	if ( empty( $topic ) )
 		return;
 
 	// What is the user doing here?
@@ -2394,7 +2400,7 @@ function bbp_close_topic( $topic_id = 0 ) {
 		return $topic;
 
 	// Bail if already closed
-	if ( bbp_get_closed_status_id == $topic['post_status'] )
+	if ( bbp_get_closed_status_id() == $topic['post_status'] )
 		return false;
 
 	// Execute pre close code
@@ -2499,6 +2505,9 @@ function bbp_spam_topic( $topic_id = 0 ) {
 
 	// Get topic tags
 	$terms = get_the_terms( $topic_id, bbp_get_topic_tag_tax_id() );
+
+	// Define local variable(s)
+	$term_names = array();
 
 	// Topic has tags
 	if ( !empty( $terms ) ) {
@@ -2877,6 +2886,58 @@ function bbp_untrashed_topic( $topic_id = 0 ) {
 	do_action( 'bbp_untrashed_topic', $topic_id );
 }
 
+/** Settings ******************************************************************/
+
+/**
+ * Return the topics per page setting
+ *
+ * @since bbPress (r3540)
+ *
+ * @uses get_option() To get the setting
+ * @uses apply_filters() To allow the return value to be manipulated
+ * @return int
+ */
+function bbp_get_topics_per_page() {
+
+	// The default per setting
+	$default = 15;
+
+	// Get database option and cast as integer
+	$per = $retval = (int) get_option( '_bbp_topics_per_page', $default );
+
+	// If return val is empty, set it to default
+	if ( empty( $retval ) )
+		$retval = $default;
+
+	// Filter and return
+	return (int) apply_filters( 'bbp_get_topics_per_page', $retval, $per );
+}
+
+/**
+ * Return the topics per RSS page setting
+ *
+ * @since bbPress (r3540)
+ *
+ * @uses get_option() To get the setting
+ * @uses apply_filters() To allow the return value to be manipulated
+ * @return int
+ */
+function bbp_get_topics_per_rss_page() {
+
+	// The default per setting
+	$default = 25;
+
+	// Get database option and cast as integer
+	$per = $retval = (int) get_option( '_bbp_topics_per_rss_page', $default );
+
+	// If return val is empty, set it to default
+	if ( empty( $retval ) )
+		$retval = $default;
+
+	// Filter and return
+	return (int) apply_filters( 'bbp_get_topics_per_rss_page', $retval, $per );
+}
+
 /** Feeds *********************************************************************/
 
 /**
@@ -2978,6 +3039,56 @@ function bbp_display_topics_feed_rss2( $topics_query = array() ) {
 
 <?php
 	exit();
+}
+
+/** Permissions ***************************************************************/
+
+/**
+ * Redirect if unathorized user is attempting to edit a topic
+ * 
+ * @since bbPress (r3605)
+ *
+ * @uses bbp_is_topic_edit()
+ * @uses current_user_can()
+ * @uses bbp_get_topic_id()
+ * @uses wp_safe_redirect()
+ * @uses bbp_get_topic_permalink()
+ */
+function bbp_check_topic_edit() {
+
+	// Bail if not editing a topic
+	if ( !bbp_is_topic_edit() )
+		return;
+
+	// User cannot edit topic, so redirect back to topic
+	if ( !current_user_can( 'edit_topic', bbp_get_topic_id() ) ) {
+		wp_safe_redirect( bbp_get_topic_permalink() );
+		exit();
+	}
+}
+
+/**
+ * Redirect if unathorized user is attempting to edit a topic tag
+ * 
+ * @since bbPress (r3605)
+ *
+ * @uses bbp_is_topic_tag_edit()
+ * @uses current_user_can()
+ * @uses bbp_get_topic_tag_id()
+ * @uses wp_safe_redirect()
+ * @uses bbp_get_topic_tag_link()
+ */
+function bbp_check_topic_tag_edit() {
+
+	// Bail if not editing a topic tag
+	if ( !bbp_is_topic_tag_edit() )
+		return;
+
+	// Bail if current user cannot edit topic tags
+	if ( !current_user_can( 'edit_topic_tags', bbp_get_topic_tag_id() ) ) {
+		wp_safe_redirect( bbp_get_topic_tag_link() );
+		exit();
+	}
 }
 
 ?>

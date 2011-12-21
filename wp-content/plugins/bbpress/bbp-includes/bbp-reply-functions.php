@@ -961,6 +961,7 @@ function bbp_toggle_reply_handler() {
 	if ( !in_array( $_GET['action'], $possible_actions ) )
 		return;
 
+	$failure   = '';                         // Empty failure string
 	$view_all  = false;                      // Assume not viewing all
 	$action    = $_GET['action'];            // What action is taking place?
 	$reply_id  = (int) $_GET['reply_id'];    // What's the reply id?
@@ -968,7 +969,8 @@ function bbp_toggle_reply_handler() {
 	$post_data = array( 'ID' => $reply_id ); // Prelim array
 
 	// Make sure reply exists
-	if ( !$reply = bbp_get_reply( $reply_id ) )
+	$reply = bbp_get_reply( $reply_id );
+	if ( empty( $reply ) )
 		return;
 
 	// What is the user doing here?
@@ -1252,6 +1254,58 @@ function bbp_untrashed_reply( $reply_id = 0 ) {
 	do_action( 'bbp_untrashed_reply', $reply_id );
 }
 
+/** Settings ******************************************************************/
+
+/**
+ * Return the replies per page setting
+ *
+ * @since bbPress (r3540)
+ *
+ * @uses get_option() To get the setting
+ * @uses apply_filters() To allow the return value to be manipulated
+ * @return int
+ */
+function bbp_get_replies_per_page() {
+
+	// The default per setting
+	$default = 15;
+
+	// Get database option and cast as integer
+	$per = $retval = (int) get_option( '_bbp_replies_per_page', $default );
+
+	// If return val is empty, set it to default
+	if ( empty( $retval ) )
+		$retval = $default;
+
+	// Filter and return
+	return (int) apply_filters( 'bbp_get_replies_per_page', $retval, $per );
+}
+
+/**
+ * Return the replies per RSS page setting
+ *
+ * @since bbPress (r3540)
+ *
+ * @uses get_option() To get the setting
+ * @uses apply_filters() To allow the return value to be manipulated
+ * @return int
+ */
+function bbp_get_replies_per_rss_page() {
+
+	// The default per setting
+	$default = 25;
+
+	// Get database option and cast as integer
+	$per = $retval = (int) get_option( '_bbp_replies_per_rss_page', $default );
+
+	// If return val is empty, set it to default
+	if ( empty( $retval ) )
+		$retval = $default;
+
+	// Filter and return
+	return (int) apply_filters( 'bbp_get_replies_per_rss_page', $retval, $per );
+}
+
 /** Feeds *********************************************************************/
 
 /**
@@ -1387,6 +1441,32 @@ function bbp_display_replies_feed_rss2( $replies_query = array() ) {
 
 	// We're done here
 	exit();
+}
+
+/** Permissions ***************************************************************/
+
+/**
+ * Redirect if unathorized user is attempting to edit a reply
+ * 
+ * @since bbPress (r3605)
+ *
+ * @uses bbp_is_reply_edit()
+ * @uses current_user_can()
+ * @uses bbp_get_topic_id()
+ * @uses wp_safe_redirect()
+ * @uses bbp_get_topic_permalink()
+ */
+function bbp_check_reply_edit() {
+
+	// Bail if not editing a topic
+	if ( !bbp_is_reply_edit() )
+		return;
+
+	// User cannot edit topic, so redirect back to reply
+	if ( !current_user_can( 'edit_reply', bbp_get_reply_id() ) ) {
+		wp_safe_redirect( bbp_get_reply_url() );
+		exit();
+	}
 }
 
 ?>

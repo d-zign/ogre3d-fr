@@ -1570,11 +1570,6 @@ function bbp_pre_get_posts( $posts_query ) {
 		// View or edit?
 		if ( !empty( $is_edit ) ) {
 
-			// Only allow super admins on multisite to edit every user.
-			if ( ( is_multisite() && !current_user_can( 'manage_network_users' ) && $user_id != $current_user->ID && !apply_filters( 'enable_edit_any_user_configuration', true ) ) || !current_user_can( 'edit_user', $user->ID ) ) {
-				wp_die( __( 'You do not have the permission to edit this user.', 'bbpress' ) );
-			}
-
 			// We are editing a profile
 			$posts_query->bbp_is_single_user_edit = true;
 
@@ -1671,9 +1666,9 @@ function bbp_pre_get_posts( $posts_query ) {
 
 	// Topic tag page
 	} elseif ( bbp_is_topic_tag() ) {
-		$posts_query->set( 'bbp_topic_tag',  get_query_var( 'term' )                  );
-		$posts_query->set( 'post_type',      bbp_get_topic_post_type()                );
-		$posts_query->set( 'posts_per_page', get_option( '_bbp_topics_per_page', 15 ) );
+		$posts_query->set( 'bbp_topic_tag',  get_query_var( 'term' )   );
+		$posts_query->set( 'post_type',      bbp_get_topic_post_type() );
+		$posts_query->set( 'posts_per_page', bbp_get_topics_per_page() );
 	}
 }
 

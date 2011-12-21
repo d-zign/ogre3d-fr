@@ -123,7 +123,7 @@ function twentyeleven_setup() {
 	add_theme_support( 'post-thumbnails' );
 
     add_theme_support( 'bbpress' );
-    add_action( 'after_setup_theme', 'bbp_twentyten_setup' );
+    //add_action( 'after_setup_theme', 'bbp_twentyten_setup' );
 }
 endif; // twentyeleven_setup
 
