@@ -5,6 +5,8 @@
  * The permissions for the base directory must allow for writing files in order
  * for the wp-config.php to be created using this page.
  *
+ * @internal This file must be parsable by PHP4.
+ *
  * @package WordPress
  * @subpackage Administration
  */
@@ -40,10 +42,12 @@ define('WP_DEBUG', false);
 /**#@-*/
 
 require_once(ABSPATH . WPINC . '/load.php');
+require_once(ABSPATH . WPINC . '/version.php');
+wp_check_php_mysql_versions();
+
 require_once(ABSPATH . WPINC . '/compat.php');
 require_once(ABSPATH . WPINC . '/functions.php');
 require_once(ABSPATH . WPINC . '/class-wp-error.php');
-require_once(ABSPATH . WPINC . '/version.php'); 
 
 if (!file_exists(ABSPATH . 'wp-config-sample.php'))
 	wp_die('Je suis d&eacute;sol&eacute;, mais il me faut partir d\'un fichier <code>wp-config-sample.php</code>. Veuillez remettre en ligne ce fichier depuis votre archive WordPress.');
@@ -57,12 +61,6 @@ if (file_exists(ABSPATH . 'wp-config.php'))
 // Check if wp-config.php exists above the root directory but is not part of another install
 if (file_exists(ABSPATH . '../wp-config.php') && ! file_exists(ABSPATH . '../wp-settings.php'))
 	wp_die("<p>Le fichier 'wp-config.php' existe déjà dans un répertoire supérieur à votre installation de WordPress. Si vous avez besoin de réinitialiser un élément de configuration de ce fichier, merci de l'effacer d'abord. Vous maintenant procéder <a href='install.php'>l'installation</a>.</p>");
-
-if ( version_compare( $required_php_version, phpversion(), '>' ) ) 
-	wp_die( sprintf( /*WP_I18N_OLD_PHP*/'Votre hébergement utilise PHP version %1$s, mais WordPress requiert au minimum la version %2$s.'/*/WP_I18N_OLD_PHP*/, phpversion(), $required_php_version ) ); 
-
-if ( !extension_loaded('mysql') && !file_exists(ABSPATH . 'wp-content/db.php') )
-	wp_die( /*WP_I18N_OLD_MYSQL*/'Votre installation PHP ne semble pas disposer de l\'extension MySQL requise par WordPress.'/*/WP_I18N_OLD_MYSQL*/ );
 
 if (isset($_GET['step']))
 	$step = $_GET['step'];
@@ -80,7 +78,7 @@ else
 function display_header() {
 	header( 'Content-Type: text/html; charset=utf-8' );
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -141,7 +139,7 @@ switch($step) {
 		</tr>
 		<tr>
 			<th scope="row"><label for="prefix">Pr&eacute;fixe de table</label></th>
-			<td><input name="prefix" type="text" id="prefix" value="wp_" size="25" /></td>
+			<td><input name="prefix" id="prefix" type="text" value="wp_" size="25" /></td>
 			<td>Si vous voulez installer plusieurs blogs WordPress dans une m&ecirc;me base de donn&eacute;es, modifiez ce champ.</td>
 		</tr>
 	</table>
@@ -177,7 +175,7 @@ switch($step) {
 	// We'll fail here if the values are no good.
 	require_wp_db();
 	if ( ! empty( $wpdb->error ) ) {
-		$back = '<p class="step"><a href="setup-config.php?step=1" onclick="javascript:history.go(-1);return false;" class="button">Try Again</a></p>'; 
+		$back = '<p class="step"><a href="setup-config.php?step=1" onclick="javascript:history.go(-1);return false;" class="button">Réessayez</a></p>'; 
 		wp_die( $wpdb->error->get_error_message() . $back ); 
 	}
 		

@@ -93,7 +93,7 @@ function bbp_has_topics( $args = '' ) {
 		'order'          => 'DESC',
 
 		// Topics per page
-		'posts_per_page' => get_option( '_bbp_topics_per_page', 15 ),
+		'posts_per_page' => bbp_get_topics_per_page(),
 
 		// Page Number
 		'paged'          => bbp_get_paged(),
@@ -678,7 +678,7 @@ function bbp_topic_pagination( $args = '' ) {
 		$pagination = array(
 			'base'      => $base,
 			'format'    => '',
-			'total'     => ceil( (int) $total / (int) get_option( '_bbp_replies_per_page', 15 ) ),
+			'total'     => ceil( (int) $total / (int) bbp_get_replies_per_page() ),
 			'current'   => 0,
 			'prev_next' => false,
 			'mid_size'  => 2,
@@ -1923,7 +1923,7 @@ function bbp_topic_class( $topic_id = 0 ) {
 	 * @uses bbp_is_topic_sticky() To check if the topic is a sticky
 	 * @uses bbp_is_topic_super_sticky() To check if the topic is a super
 	 *                                    sticky
-	 * @uses post_class() To get the topic classes
+	 * @uses get_post_class() To get the topic classes
 	 * @uses apply_filters() Calls 'bbp_get_topic_class' with the classes
 	 *                        and topic id
 	 * @return string Row class of a topic
@@ -1931,14 +1931,17 @@ function bbp_topic_class( $topic_id = 0 ) {
 	function bbp_get_topic_class( $topic_id = 0 ) {
 		global $bbp;
 
+		$topic_id  = bbp_get_topic_id( $topic_id );
+		$count     = isset( $bbp->topic_query->current_post ) ? $bbp->topic_query->current_post : 1;
 		$classes   = array();
-		$classes[] = $bbp->topic_query->current_post % 2     ? 'even'         : 'odd';
+		$classes[] = ( (int) $count % 2 )                    ? 'even'         : 'odd';
 		$classes[] = bbp_is_topic_sticky( $topic_id, false ) ? 'sticky'       : '';
 		$classes[] = bbp_is_topic_super_sticky( $topic_id  ) ? 'super-sticky' : '';
 		$classes   = array_filter( $classes );
-		$post      = post_class( $classes, $topic_id );
+		$retval    = get_post_class( $classes, $topic_id );
+		$retval    = 'class="' . join( ' ', $retval ) . '"';
 
-		return apply_filters( 'bbp_get_topic_class', $post, $topic_id );
+		return apply_filters( 'bbp_get_topic_class', $retval, $topic_id );
 	}
 
 /** Topic Admin Links *********************************************************/
