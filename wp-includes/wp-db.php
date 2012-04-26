@@ -752,7 +752,7 @@ class wpdb {
 <li>L&rsquo;utilisateur <code>%2$s</code> a-t-il les droits pour utiliser la base de données <code>%1$s</code>&nbsp;?</li>
 <li>Sur certains systèmes, le nom de votre base de données est préfixée de votre identifiant, donc son nom complet peut être <code>username_%1$s</code>. Cela peut-il être la cause du problème&nbps;?</li>
 </ul>
-<p>Si vous ne savez pas comment régler votre base de données, vous devriez <strong>prendre contact avec votre hébergeur</strong>. Si toutes vos tentatives échouent, peut-être trouverez-vous une réponse sur le <a href=\'http://www.wordpress-fr.net/support/\'>forum d&rsquo;entraide en français</a>.</p>'/*/WP_I18N_DB_SELECT_DB*/, $db, $this->dbuser ), 'db_select_fail' );
+<p>Si vous ne savez pas comment régler votre base de données, vous devriez <strong>prendre contact avec votre hébergeur</strong>. Si toutes vos tentatives échouent, peut-être trouverez-vous une réponse sur le <a href=\'http://www.wordpress-fr.net/support/\'>forum d&rsquo;entraide en français</a>.</p>'/*/WP_I18N_DB_SELECT_DB*/, htmlspecialchars( $db, ENT_QUOTES ), htmlspecialchars( $this->dbuser, ENT_QUOTES ) ), 'db_select_fail' );
 			return;
 		}
 	}
@@ -1046,7 +1046,7 @@ class wpdb {
 	<li>Êtes-vous certain(e) que le serveur de base de données fonctionne correctement&nbsp;?</li>
 </ul>
 <p>Si vous n&rsquo;êtes pas sûr(e) de bien comprendre les mots de cette liste, vous devriez sans doute prendre contact avec votre hébergeur. Si malgré cela cette erreur s&rsquo;affiche toujours, indiquez votre problème au <a href=\'http://www.wordpress-fr.net/support/\'>forum d&rsquo;entraide en français</a>.</p>
-'/*/WP_I18N_DB_CONN_ERROR*/, $this->dbhost ), 'db_connect_fail' );
+'/*/WP_I18N_DB_CONN_ERROR*/, htmlspecialchars( $this->dbhost, ENT_QUOTES ) ), 'db_connect_fail' );
 
 			return;
 		}
