@@ -43,7 +43,7 @@ class SyntaxHighlighter {
 		load_plugin_textdomain( 'syntaxhighlighter', false, '/syntaxhighlighter/localization' );
 
 		// Display hooks
-		add_filter( 'the_content',                        array( &$this, 'parse_shortcodes' ),                              7 ); // Posts
+		add_filter( 'the_content',                        array( &$this, 'parse_shortcodes' ),                              11 ); // Posts
 		add_filter( 'comment_text',                       array( &$this, 'parse_shortcodes_comment' ),                      7 ); // Comments
 		add_filter( 'bp_get_the_topic_post_content',      array( &$this, 'parse_shortcodes' ),                              7 ); // BuddyPress
 		add_filter( 'bbp_get_reply_content',              array( &$this, 'parse_shortcodes' ),                              7 ); // bbPress
@@ -241,8 +241,8 @@ class SyntaxHighlighter {
 
 		// Register each shortcode with a placeholder callback so that strip_shortcodes() will work
 		// The proper callback and such is done in SyntaxHighlighter::shortcode_hack()
-		foreach ( $this->shortcodes as $shortcode )
-			add_shortcode( $shortcode, '__return_true' );
+		//foreach ( $this->shortcodes as $shortcode )
+		//	add_shortcode( $shortcode, '__return_true' );
 
 
 		// Create list of themes and their human readable names

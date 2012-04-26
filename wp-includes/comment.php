@@ -180,7 +180,6 @@ function &get_comment(&$comment, $output = OBJECT) {
  * @return array List of comments.
  */
 function get_comments( $args = '' ) {
-
 	$query = new WP_Comment_Query;
 	return $query->query( $args );
 }

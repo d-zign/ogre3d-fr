@@ -5,7 +5,9 @@ class WikiPageController {
 		$this->WikiPageController();
 	} 
 	
-	function WikiPageController() {
+	function WikiPageController()
+	{
+		add_shortcode('code', array($this, 'set_nowiki_code'));
 		add_filter('wp_insert_post_data',array($this,'save_code'), '99');
 		$this->WikiHelper = new WikiHelpers();
 	}
@@ -21,7 +23,7 @@ class WikiPageController {
 		
 		$author = $this->WikiHelper->get_author($post);
 		
-		$latest_revision = sprintf(__('Latest revision (@ %1s by %2s)'), $post->post_modified, $author);
+		$latest_revision = sprintf(__('Latest revision (@ %1s by %2s)', 'wordpress-wiki'), $post->post_modified, $author);
 		
 		$output = '<a href="'.get_permalink($post->ID).'">'.$latest_revision.'</a><br />';
 		
@@ -35,7 +37,7 @@ class WikiPageController {
 					$author = $this->WikiHelper->get_author($revision);
 					
 					$date = date(__('d/m/y G:i'), strtotime($revision->post_modified));
-					$revision_title = sprintf(__('Revision @ %1s by %2s'), $date, $author);
+					$revision_title = sprintf(__('Revision @ %1s by %2s', 'wordpress-wiki'), $date, $author);
 					$output.= '<a href="'.get_permalink($post->ID).'?revision='.$revision->ID.'">'.$revision_title.'</a><br />';
 					$count++;	
 				}
@@ -97,7 +99,7 @@ class WikiPageController {
 		}
 		$table .= "</ol>";
 		$content = str_replace("::newline::", "\n", $content);
-		return "<div class='contents alignright'><h3>".__('Contents')."</h3><p> &#91; <a class='show' onclick='toggle_hide_show(this)'>".__('hide')."</a> &#93; </p>$table</div>".$content;
+		return "<div class='contents alignright'><h3>".__('Contents', 'wordpress-wiki')."</h3><p> &#91; <a class='show' onclick='toggle_hide_show(this)'>".__('hide', 'wordpress-wiki')."</a> &#93; </p>$table</div>".$content;
 	}
 	
 	
@@ -121,7 +123,7 @@ class WikiPageController {
 			$revision_data = get_post($_GET['revision']);
 			$revision_author = get_userdata($revision_data->post_author);
 			
-			$warning = '<div id="wpw_read_revision_warning">'.__('Currently working with revision').' @ '.$revision_data->post_modified.' '.__('by').' '.$revision_author->display_name.'. <a href="'.get_permalink($post->ID).'">'.__('Current version').'</a></div>';
+			$warning = '<div id="wpw_read_revision_warning">'.__('Currently working with revision', 'wordpress-wiki').' @ '.$revision_data->post_modified.' '.__('by', 'wordpress-wiki').' '.$revision_author->display_name.'. <a href="'.get_permalink($post->ID).'">'.__('Current version', 'wordpress-wiki').'</a></div>';
 			$post->is_revision = true;
 			$post->revision_content = $revision_data->post_content;
 			$post->revision_author = $revision_author->display_name;
@@ -140,7 +142,7 @@ class WikiPageController {
 			if ( !$this->WikiHelper->is_restricted() ) {
 				add_filter('the_content',array($this, 'substitute_in_revision_content'),11);
 				add_filter('the_content',array($this,'front_end_interface'),12);
-				add_action('wp_footer',array($this,'inline_editor'));
+				//add_action('wp_footer',array($this,'inline_editor'));
 			} else {
 				add_filter('the_content',array($this,'wpw_nope') );
 			}
@@ -153,8 +155,8 @@ class WikiPageController {
 	function wpw_nope($content) {
 		global $post;
 		$content = $this->get_content($content);
-		$message = __('This page is a Wiki!');
-		$message .= '&nbsp;<a href="'.wp_login_url(get_permalink($post->ID)).'">'.__('Log in or register an account to edit.').'</a>';
+		$message = __('This page is a Wiki!', 'wordpress-wiki');
+		$message .= '&nbsp;<a href="'.wp_login_url(get_permalink($post->ID)).'">'.__('Log in or register an account to edit.', 'wordpress-wiki').'</a>';
 		return $content.$message;
 	}
 	
@@ -173,15 +175,15 @@ class WikiPageController {
 		global $post;
 		$wiki_parser = new WPW_WikiParser();
 		$wiki_parser->reference_wiki = get_bloginfo('url').'/wiki/';
-		$wiki_parser->suppress_linebreaks = true;	
+		$wiki_parser->suppress_linebreaks = true;
 		$content = $wiki_parser->parse($content, $post->post_title);
-		$content = wpautop($content);	
+		$content = wpautop($content);
 		return $content;
 		unset($wiki_parser);
 	}
 	
-	function get_content($content, $class = null ){
-		global $post;
+	function get_content($content, $class = null )
+	{
 		return '<div id="wpw_read_div" '.$class.'>'.$this->table_of_contents( wptexturize( $this->wiki_parser($content) ) ).'</div>';	
 	}
 	
@@ -189,9 +191,9 @@ class WikiPageController {
 		global $post;
 		return '<div id="wpw_edit_div" '.$class.'>
 					<form action="" method="post">
-						<textarea name="wpw_editor_content" style="width:100%;height:200px;" id="area1">'.$content.'</textarea>
+						<textarea name="wpw_editor_content" style="width:100%;height:200px;" id="area1">'.get_the_content().'</textarea>
 						'.wp_nonce_field('wpw_edit_form').'
-						<input type="submit" value="save" id="wpw_save" />
+						<p class="roundbutton"><input type="submit" value="' . __( 'Save', 'wordpress-wiki') . '" id="wpw_save" /></p>
 						<input type="hidden" value="'.$post->ID.'" name="wpw_id" />
 					</form>
 				</div>';
@@ -219,6 +221,7 @@ class WikiPageController {
 		get_option('wpw_options');
 		
 		$wiki_interface = array('content','edit','history');
+		$tabs = "";
 		$return = "";
 		$interface = "content";
 		
@@ -239,14 +242,27 @@ class WikiPageController {
 			$return .= $this->get_section( $content, $wiki, $class );
 		
 		endforeach;
+		
+		$tabs .= '<li';
+		if ($interface == "content")
+			$tabs .= ' class="ui-tabs-selected"';
+		$tabs .= '><a id="wpw_read" href="?wpw_action=read">' . __( 'Read', 'wordpress-wiki') . '</a></li>';
+		
+		$tabs .= '<li';
+		if ($interface == "edit")
+			$tabs .= ' class="ui-tabs-selected"';
+		$tabs .= '><a id="wpw_edit" href="?wpw_action=edit">' . __( 'Edit', 'wordpress-wiki') . '</a></li>';
+		
+		$tabs .= '<li';
+		if ($interface == "history")
+			$tabs .= ' class="ui-tabs-selected"';
+		$tabs .= '><a id="wpw_view_history" href="?wpw_action=history">' . __( 'History', 'wordpress-wiki') . '</a></li>';
 			
 		return 
 			$update.'
 			<div id="wpw_tabs">
 			<ul id="wpw_tab_nav">
-				<li><a id="wpw_read" href="?wpw_action=content">Read</a></li>
-				<li><a id="wpw_edit" href="?wpw_action=edit">Edit</a></li>
-				<li><a id="wpw_view_history" href="?wpw_action=history">View History</a></li>
+				' . $tabs . '
 			</ul>
 			'.$warning
 			 .$return.'
@@ -306,9 +322,9 @@ class WikiPageController {
 		';
 	}
 	
-	function save_code($data,$postarr = Array()) {	
+	function save_code($data,$postarr = Array()) {
 		$regex = '/(?<=^code>|pre>|%%%).+?(?=<\/$1$>)/sm';
-		$data['post_content'] = preg_replace_callback('/\[code.*?\].*?\[\/code.*?\]/sm', array($this, 'codeBlock'),  $data['post_content']);
+		//$data['post_content'] = preg_replace_callback('/\[code.*\].+?\[\/code.*\]/si', array($this, 'codeBlock'),  $data['post_content']);
 		$data['post_content'] = preg_replace_callback($regex, array($this, 'nowiki'),  $data['post_content']);
 		return $data;
 	}
@@ -406,13 +422,17 @@ class WikiPageController {
 			*/
 		} else {
 			//This is the error message that displays if a user has no credentials to edit pages.
-			die(__('You don\'t have permission to do that.'));
+			die(__('You don\'t have permission to do that.', 'wordpress-wiki'));
 		}
 	}
 	
 	function ajax_save() {
 		if ($this->save_post())
+		{
 			die('Post saved!');
+			//wp_redirect(get_permalink());
+			//exit;
+		}
 	}
 	
 	function no_js_save() {
@@ -437,8 +457,8 @@ class WikiPageController {
 				$post->post_category= array('Uncategorized'); //Add some categories. an array()???
 				$post->post_content='A wiki page with the title '.$new_title.' could not be found. '.$new_link; //The full text of the post.
 				$post->post_excerpt= $post->post_content; //For all your post excerpt needs.
-				$post->post_status='publish'; //Set the status of the new post.
-				$post->post_title= 'New Wiki Page'; //The title of your post.
+				$post->post_status = __('publish', 'wordpress-wiki'); //Set the status of the new post.
+				$post->post_title= __('New Wiki Page', 'wordpress-wiki'); //The title of your post.
 				$post->post_type='page'; //Sometimes you might want to post a page.
 				$post->comment_status = 'open';
 				$post->post_date = date('Y-m-d H:i:s', time());
@@ -485,7 +505,7 @@ class WikiPageController {
 	
 	    $new_wiki['post_name'] = $topic;
 	    $new_wiki['post_title'] = $title;
-	    $new_wiki['post_content'] = 'Click the "Edit" tab to add content to this page.';
+	    $new_wiki['post_content'] = __('Click the "Edit" tab to add content to this page.', 'wordpress-wiki');
 	    $new_wiki['guid'] = $url;
 	    $new_wiki['post_status'] = 'publish';
 	
@@ -514,7 +534,19 @@ class WikiPageController {
 		}
 	
 	}
-
+	
+	function set_nowiki_code($atts, $content="")
+	{
+		$attributes = "";
+		if (!empty($atts))
+		{
+			foreach ($atts as $key => $value)
+			{
+				$attributes .= ' ' . $key . '="' .$value . '"';
+			}
+		}
+		return '<nowiki>[code'. $attributes . ']' . $content . '[/code]</nowiki>';
+	}
 }
 
 ?>

@@ -9,10 +9,17 @@ Author URI: http://www.instinct.co.nz
 */
 
 class WP_Wiki {
-	function __construct() {
+	function __construct()
+	{
+		add_action('init', array($this, 'wpwiki_trans_init'));
 		$this->WP_Wiki();
 	}
 	
+	function wpwiki_trans_init()
+	{
+		load_plugin_textdomain('wordpress-wiki', false, dirname(plugin_basename( __FILE__ )) . '/lang/');
+	}
+
 	function WP_Wiki() {
 		global $wp_version;
 		/**
@@ -41,6 +48,8 @@ class WP_Wiki {
 		include(WPWIKI_FILE_PATH.'/controllers/wiki_dashboard_widget.php');
 		include(WPWIKI_FILE_PATH.'/controllers/wiki_user_contrib_widget.php');
 		include(WPWIKI_FILE_PATH.'/wiki_helpers.php');
+		
+		
 		
 		//include Wiki Parser class here so it doesn't get re-declared- fixes issue #4 on GitHub. Thanks Nexiom!
 		include(WPWIKI_FILE_PATH.'/lib/wpw_wikiparser.php');

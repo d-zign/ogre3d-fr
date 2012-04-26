@@ -1,0 +1,318 @@
+# Translation of the WordPress plugin WordPress Wiki 0.8.1 by Instinct Entertainment.
+# Copyright (C) 2010 Instinct Entertainment
+# This file is distributed under the same license as the WordPress Wiki package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: WordPress Wiki 0.8.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-04-26 02:05+0100\n"
+"PO-Revision-Date: 2012-04-26 02:07+0100\n"
+"Last-Translator: \n"
+"Language-Team: Jérémie Ledentu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
+"X-Poedit-Language: French\n"
+"X-Poedit-Country: FRANCE\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-KeywordsList: __\n"
+"X-Poedit-SearchPath-0: ..\n"
+"X-Poedit-SearchPath-1: ../controllers\n"
+
+#: ../controllers/wiki_admin.php:82
+#, fuzzy
+msgid "Wiki page"
+msgstr "Wiki-Änderung"
+
+#: ../controllers/wiki_admin.php:82
+msgid "successfully upgraded to Wiki post type."
+msgstr ""
+
+#: ../controllers/wiki_admin.php:126
+msgid "Finish Upgrade"
+msgstr ""
+
+#: ../controllers/wiki_admin.php:220
+#: ../controllers/wiki_admin.php:223
+#: ../controllers/wiki_admin.php:226
+#, fuzzy
+msgid "Wiki Options"
+msgstr "Wiki-Einstellungen"
+
+#: ../controllers/wiki_notifications.php:30
+#, fuzzy, php-format
+msgid "A Wiki Page has been modified on %s."
+msgstr "Eine Wiki-Seite wurde geändert am '%1$s'."
+
+#: ../controllers/wiki_notifications.php:32
+#, php-format
+msgid "The page title is %s"
+msgstr "Le titre est %1$s"
+
+#: ../controllers/wiki_notifications.php:34
+msgid "To visit this page, "
+msgstr "Pour visiter cette page,"
+
+#: ../controllers/wiki_notifications.php:34
+msgid "click here"
+msgstr "cliquer ici"
+
+#: ../controllers/wiki_pages.php:22
+msgid "m/d/y g:i a"
+msgstr ""
+
+#: ../controllers/wiki_pages.php:26
+#, php-format
+msgid "Latest revision (@ %1s by %2s)"
+msgstr "Dernière révision (@ %1s par %2s)"
+
+#: ../controllers/wiki_pages.php:39
+msgid "d/m/y G:i"
+msgstr ""
+
+#: ../controllers/wiki_pages.php:40
+#, php-format
+msgid "Revision @ %1s by %2s"
+msgstr "Révision @ %1s par %2s"
+
+#: ../controllers/wiki_pages.php:102
+msgid "Contents"
+msgstr "Sommaire"
+
+#: ../controllers/wiki_pages.php:102
+msgid "hide"
+msgstr "masquer"
+
+#: ../controllers/wiki_pages.php:126
+msgid "Currently working with revision"
+msgstr "Ceci est la révision"
+
+#: ../controllers/wiki_pages.php:126
+msgid "by"
+msgstr "par"
+
+#: ../controllers/wiki_pages.php:126
+msgid "Current version"
+msgstr "Version actuelle"
+
+#: ../controllers/wiki_pages.php:158
+msgid "This page is a Wiki!"
+msgstr "Cette page est un wiki !"
+
+#: ../controllers/wiki_pages.php:159
+msgid "Log in or register an account to edit."
+msgstr "Connectez-vous ou créez un compte pour modifier cette page."
+
+#: ../controllers/wiki_pages.php:196
+msgid "Save"
+msgstr "Enregistrer les modifications"
+
+#: ../controllers/wiki_pages.php:249
+msgid "Read"
+msgstr "Lire"
+
+#: ../controllers/wiki_pages.php:254
+msgid "Edit"
+msgstr "Modifier"
+
+#: ../controllers/wiki_pages.php:259
+msgid "History"
+msgstr "Afficher l'historique"
+
+#: ../controllers/wiki_pages.php:425
+msgid "You don't have permission to do that."
+msgstr "Vous n'avez pas la permission nécessaire."
+
+#: ../controllers/wiki_pages.php:460
+msgid "publish"
+msgstr "publier"
+
+#: ../controllers/wiki_pages.php:461
+#: ../model/wiki_post_type.php:20
+#, fuzzy
+msgid "New Wiki Page"
+msgstr "Wiki-Änderung"
+
+#: ../controllers/wiki_pages.php:508
+msgid "Click the \"Edit\" tab to add content to this page."
+msgstr "Cliquez sur le bouton \"Modifier\" pour ajouter du contenu dans cette page."
+
+#: ../controllers/wiki_user_contrib_widget.php:7
+msgid "My Contributions widget for WordPress Wiki Plugin"
+msgstr "Mein Beitrag widget für das WordPress Wiki Plugin"
+
+#: ../model/wiki_post_type.php:17
+msgid "Add New"
+msgstr ""
+
+#: ../model/wiki_post_type.php:18
+msgid "Add New Wiki Page"
+msgstr ""
+
+#: ../model/wiki_post_type.php:19
+#, fuzzy
+msgid "Edit Wiki Page"
+msgstr "Wiki-Änderung"
+
+#: ../model/wiki_post_type.php:21
+#, fuzzy
+msgid "View Wiki Page"
+msgstr "Wiki-Änderung"
+
+#: ../model/wiki_post_type.php:22
+msgid "Search Wiki Pages"
+msgstr ""
+
+#: ../model/wiki_post_type.php:23
+msgid "No Wiki Pages found"
+msgstr ""
+
+#: ../model/wiki_post_type.php:24
+msgid "No Wiki Pages found in Trash"
+msgstr ""
+
+#: ../model/wiki_post_type.php:41
+msgid "Wiki-enabled page. Users with permission can edit this page."
+msgstr ""
+
+#: ../views/feed.php:13
+#, fuzzy
+msgid "Recently modified wiki pages for : "
+msgstr "Kürzlich geänderte Seiten für:"
+
+#: ../views/feed.php:23
+#, fuzzy
+msgid "wiki URL: "
+msgstr "Wiki-URL:"
+
+#: ../views/feed.php:24
+msgid "Modified By: "
+msgstr "Modifié par :"
+
+#: ../views/options_page.php:13
+msgid "An older version of WordPress Wiki was detected. Before using WordPress Wiki, you'll need to upgrade your existing installation."
+msgstr ""
+
+#: ../views/options_page.php:15
+msgid "Your old Wiki pages will be upgraded to custom post types and placed in the trash."
+msgstr ""
+
+#: ../views/options_page.php:17
+msgid "WARNING: YOU CANNOT UNDO THIS ACTION. BACK UP YOUR DATA BEFORE UPGRADING!"
+msgstr ""
+
+#~ msgid "%1$s by %2$s|post revision 1:datetime, 2:name"
+#~ msgstr "%1$s von %2$s"
+
+#~ msgid "Post Revisions"
+#~ msgstr "Revisionen"
+
+#~ msgid ""
+#~ "<a href=\"%1$s\">Current revision</a> by %2$s - <a href=\"%3$s\">Edit "
+#~ "this page</a>"
+#~ msgstr ""
+#~ "<a href=\"%1$s\">Aktuelle Revision</a> von %2$s - <a href=\"%3$s\">Diese "
+#~ "Seite bearbeiten</a>"
+
+#~ msgid "j F, Y @ G:i|revision date format"
+#~ msgstr "d.m.Y G:i"
+
+#~ msgid "%s [Autosave]"
+#~ msgstr "%s [Automatische Speicherung]"
+
+#~ msgid ""
+#~ "This page/post is a wiki friendly page and may be edited by authors and "
+#~ "contributors."
+#~ msgstr ""
+#~ "Diese(r) Beitrag/Seite ist eine Wiki-freundliche Seite und kann von "
+#~ "Anderen geändert werden."
+
+#~ msgid "Enable Table of Contents"
+#~ msgstr "Aktiviere Inhaltsverzeichnis"
+
+#~ msgid "Wordpress Wiki"
+#~ msgstr "Wordpress Wiki"
+
+#~ msgid "No contributions yet."
+#~ msgstr "Bisher keine Beteiligungen."
+
+#~ msgid "You have made no contributions"
+#~ msgstr "Sie haben bisher noch keine Inhalte beigetragen."
+
+#~ msgid "Title:"
+#~ msgstr "Titel:"
+
+#~ msgid "Number of posts to show:"
+#~ msgstr "Anzahl an Beiträgen"
+
+#~ msgid "My Contributions"
+#~ msgstr "Von mir beigetragen"
+
+#~ msgid "To visit this page <a href=\"%3$s\">click here</a>."
+#~ msgstr "Um die Seite zu besuchen <a href=\"%3$s\">klicken sie hier</a>."
+
+#~ msgid ""
+#~ "Sorry, the page with title %1$s is not created yet. Click <a href=\"%2$s/"
+#~ "wp-admin/post-new.php\">here</a> to create a new page with that title."
+#~ msgstr ""
+#~ "Sorry, die Seite mit dem Titel %1$s existiert noch nicht. Klicken sie <a "
+#~ "href=\"%2$s/wp-admin/post-new.php\">hier</a> um eine neue Seite mit "
+#~ "diesem Titel zu erzeugen."
+
+#~ msgid "Once Weekly"
+#~ msgstr "Einmal pro Woche"
+
+#~ msgid "Once Fortnightly"
+#~ msgstr "Einmal alle zwei Wochen"
+
+#~ msgid "The following Wiki Pages has been modified on '%s'"
+#~ msgstr "Die folgenden Wiki-Seiten wurden geändert am '%s'"
+
+#~ msgid "Page title is %1$s."
+#~ msgstr "Der Seitentitel lautet %1$s."
+
+#~ msgid "To visit this page <a href=\"%1$s\">click here</a>."
+#~ msgstr "<a href=\"%1$s\">Klicken sie hier</a> um die Seite zu besuchen."
+
+#~ msgid "Update Complete."
+#~ msgstr "Änderung gespeichert."
+
+#~ msgid "Number of Revisions per page:"
+#~ msgstr "Anzahl an Revisionen pro Seite:"
+
+#~ msgid "Notify Administrators via Email when wiki pages have been editted."
+#~ msgstr ""
+#~ "Benachrichtige alle Administratoren per E-Mail, wenn eine Wiki-Seite "
+#~ "editiert wurde."
+
+#~ msgid "Show Table of Content on the front page posts."
+#~ msgstr "Zeige Inhaltsverzeichnis in den Beiträgen auf der Startseite."
+
+#~ msgid ""
+#~ "Notify Administrators via Email when wiki pages have been editted. (only "
+#~ "once in a week)"
+#~ msgstr ""
+#~ "Benachrichtige alle Administratoren per E-Mail, wenn Wiki-Seiten editiert "
+#~ "wurden. (Einmal pro Woche)"
+
+#~ msgid "Submit"
+#~ msgstr "Absenden"
+
+#~ msgid "WordPress Wiki"
+#~ msgstr "WordPress Wiki"
+
+#~ msgid "http://wordpress.org/extend/plugins/wordpress-wiki/"
+#~ msgstr "http://wordpress.org/extend/plugins/wordpress-wiki/"
+
+#~ msgid "Add Wiki functionality to your wordpress site."
+#~ msgstr "Füge deiner Wordpress-Seite Wiki-Funktionalität hinzu."
+
+#~ msgid "Instinct Entertainment"
+#~ msgstr "Instinct Entertainment"
+
+#~ msgid "http://www.instinct.co.nz"
+#~ msgstr "http://www.instinct.co.nz"

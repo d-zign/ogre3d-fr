@@ -154,7 +154,7 @@ a.roundbutton span, a.more-link span
     border: none;
 }
 
-#submit-topic input.roundbutton:hover, #submit-topic button.roundbutton:active, p.roundbutton:hover input, p.roundbutton input:active
+input.roundbutton:hover, button.roundbutton:active, p.roundbutton:hover input, p.roundbutton input:active
 {
     color: #cb8704;
 }
@@ -205,6 +205,18 @@ a.read-more-button, a.more-link
     background: url("images/entry-bottom.png") no-repeat bottom #f5f5f5;
 	padding-bottom: 30px;
 }
+
+#content
+{
+	font-size: 13px;
+}
+
+#content h3
+{
+	font-size: 13px;
+	font-weight: bold;
+}
+
 
 /* ----------------------------------------------- */
 /*                   HEADER                        */
@@ -1222,13 +1234,7 @@ a:hover {
 	font-weight: bold;
 	margin: 0 0 .8125em;
 }
-.entry-content h3,
-.comment-content h3 {
-	font-size: 10px;
-	letter-spacing: 0.1em;
-	line-height: 2.6em;
-	text-transform: uppercase;
-}
+
 .entry-content table,
 .comment-content table {
 	border-bottom: 1px solid #ddd;
@@ -3120,18 +3126,21 @@ table.bbp-replies td.bbp-reply-content
 	font-size: 13px;
 }
 
-table.bbp-forums, table.bbp-topics, table.bbp-replies
+#content table
 {
     border-collapse: collapse;
     border-spacing: 0;
     border-bottom: none;
-    border: solid 1px ##345e3a;
+    border: solid 1px #345e3a;
     background: #396a41;
 }
 
-table.bbp-forums td, table.bbp-forums th,
-table.bbp-topics td, table.bbp-topics th,
-table.bbp-replies td, table.bbp-replies th
+#content table tbody
+{
+    border-right: solid 1px #d5d5d5;
+}
+
+#content table td, #content table th
 {
     padding: 0 5px 2px 5px;
     border: none;
@@ -3145,35 +3154,29 @@ table.bbp-replies .hentry, table.bbp-replies.no-results
     border-bottom: none;
 }
 
-table.bbp-forums thead, table.bbp-topics thead, table.bbp-replies thead, 
-table.bbp-forums tfoot, table.bbp-topics tfoot, table.bbp-replies tfoot
-
+#content table thead, #content table tfoot
 {
     border: solid 1px #345e3a;
 }
 
-table.bbp-forums thead a, table.bbp-topics thead a, table.bbp-replies thead a, 
-table.bbp-forums tfoot a, table.bbp-topics tfoot a, table.bbp-replies tfoot a
-
+#content table thead a, #content table tfoot a
 {
     color: #e4f07d;
 }
 
-table.bbp-forums thead a:hover, table.bbp-topics thead a:hover, table.bbp-replies thead a:hover, 
-table.bbp-forums tfoot a:hover, table.bbp-topics tfoot a:hover, table.bbp-replies tfoot a:hover
-
+#content table thead a:hover, #content table tfoot a:hover
 {
     color: #ecffc3;
 }
 
-table.bbp-forums th, table.bbp-topics th, table.bbp-replies th
+#content table th, #content table thead th
 {
     background: #396a41 url('images/list_topics_head_bkg.png') repeat-x top;
     color: white;
     border: none;
 }
 
-table.bbp-forums td, table.bbp-topics td, table.bbp-replies td
+#content table tbody td
 {
     border: 1px solid #d5d5d5;
     background: #fff url('images/list_topics_bkg.png') repeat-x bottom;
@@ -3567,6 +3570,13 @@ ul#wpw_tab_nav li
 	letter-spacing: 0;
 	line-height: 20px;
 	overflow: hidden;
+}
+
+#wpw_read_revision_warning
+{
+	margin: 10px 0;
+	font-weight: bold;
+	font-style: italic;
 }
 
 /* --------------------------------------- */
