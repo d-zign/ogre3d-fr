@@ -49,8 +49,8 @@ class BBCode {
 		add_shortcode( 'S' , array(&$this, 'shortcode_strikethrough') );
 		add_shortcode( 'center' , array(&$this, 'shortcode_center') );
 		add_shortcode( 'CENTER' , array(&$this, 'shortcode_center') );
-		add_shortcode( 'code' , array(&$this, 'shortcode_code') );
-		add_shortcode( 'CODE' , array(&$this, 'shortcode_code') );
+		//add_shortcode( 'code' , array(&$this, 'shortcode_code') );
+		//add_shortcode( 'CODE' , array(&$this, 'shortcode_code') );
 		add_shortcode( 'size' , array(&$this, 'shortcode_size') );
 		add_shortcode( 'SIZE' , array(&$this, 'shortcode_size') );
 		add_shortcode( 'ul' , array(&$this, 'shortcode_unorderedlist') );		

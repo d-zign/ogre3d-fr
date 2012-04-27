@@ -190,6 +190,7 @@ class WikiPageController {
 	function get_edit($content, $class = null ){
 		global $post;
 		return '<div id="wpw_edit_div" '.$class.'>
+					' . do_action('bbp_post_toolbar_insertion') . '
 					<form action="" method="post">
 						<textarea name="wpw_editor_content" style="width:100%;height:200px;" id="area1">'.get_the_content().'</textarea>
 						'.wp_nonce_field('wpw_edit_form').'
@@ -382,6 +383,8 @@ class WikiPageController {
 				*/
 				if (!is_user_logged_in())
 					$n_post['post_author'] = 0;
+				//else
+				//	$n_post['post_author'] = get_current_user_id();
 	
 				$n_post['ID'] = $wpw_id;
 			// Insert the post into the database
