@@ -190,7 +190,7 @@ class WikiPageController {
 	function get_edit($content, $class = null ){
 		global $post;
 		return '<div id="wpw_edit_div" '.$class.'>
-					' . do_action('bbp_post_toolbar_insertion') . '
+					' . /*do_action('do_ogretoolbar', "area") . */'
 					<form action="" method="post">
 						<textarea name="wpw_editor_content" style="width:100%;height:200px;" id="area1">'.get_the_content().'</textarea>
 						'.wp_nonce_field('wpw_edit_form').'
