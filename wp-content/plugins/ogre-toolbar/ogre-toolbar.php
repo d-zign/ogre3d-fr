@@ -19,8 +19,14 @@ class ogreToolBar
 		add_action('wp_head', array($this, 'add_header'));
 		add_action('do_ogretoolbar', array($this, 'do_toolbar'), 10, 1);
 		
+		$sets = array('bbcode', 'wiki');
+		
 		wp_enqueue_style("ogretoolbar_markitup", WP_PLUGIN_URL . '/' . basename(dirname(__FILE__)) . '/markitup/skins/ogre/style.css', false);
-		wp_enqueue_style("ogretoolbar_bbcode", WP_PLUGIN_URL . '/' . basename(dirname(__FILE__)) . '/markitup/sets/bbcode/style.css', false);
+
+		foreach ($sets as $set_name)
+		{
+			wp_enqueue_style('ogretoolbar_' . $set_name, WP_PLUGIN_URL . '/' . basename(dirname(__FILE__)) . '/markitup/sets/' . $set_name . '/style.css', false);
+		}
 	}
 	
 	function trailingslashit($string)
@@ -37,11 +43,13 @@ class ogreToolBar
 	?>
 		<script type="text/javascript" src="<?php echo $this->markitup_path;?>jquery.markitup.js"></script>
 		<script type="text/javascript" src="<?php echo $this->markitup_path;?>sets/bbcode/set.js"></script>
+		<script type="text/javascript" src="<?php echo $this->markitup_path;?>sets/wiki/set.js"></script>
 		<script type="text/javascript" >
 		   jQuery(document).ready(function($)
 		   {
 				//var myBbcodeSettings = {nameSpace:'bbcode'};
-				$("textarea").markItUp(mySettings);
+				$("textarea.wiki").markItUp(myWikiSettings);
+				$("textarea.bbcode").markItUp(myBBCodeSettings);
 		   });
 		</script>
 	<?php

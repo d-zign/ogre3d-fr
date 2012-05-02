@@ -7,35 +7,43 @@
 	outline:none;
 }
 .markItUp a:link,
-.markItUp a:visited {
+.markItUp a:visited
+{
 	color:#000;
 	text-decoration:none;
 }
-.markItUp  {
+
+.markItUp
+{
 	/*width:700px;*/
 	margin:5 0
 	border:5px solid #F5F5F5;	
 }
-.markItUpContainer  {
-	border:1px solid #666;	
-	background:#FFF url(images/bg-container.png) repeat-x top left;
-	padding: 5px 5px 2px 5px;
-	font:11px Verdana, Arial, Helvetica, sans-serif;
+
+.markItUpContainer 
+{
+	border:1px solid #bbb;
+	margin: 5px 0;
+	padding: 0;
+	font: 11px Verdana, Arial, Helvetica, sans-serif;
 	position: relative;
 }
+
 .markItUpEditor
 {
 	font:12px 'Courier New', Courier, monospace;
-	padding:5px 5px 5px 35px;
-	border: 1px solid #61955b;
-	width:643px;
-	height:320px;
-	background:#FFF url(images/bg-editor.png) no-repeat;
+	padding: 0;
+	width: 978px;
+	height: 500px;
+	border: none;
+	/*background:#FFF url(images/bg-editor.png) no-repeat;*/
 	clear:both;
 	line-height:18px;
 	overflow:auto;
 }
-.markItUpPreviewFrame	{
+
+.markItUpPreviewFrame
+{
 	overflow:auto;
 	background-color:#FFFFFF;
 	border:1px solid #3C769D;
@@ -43,18 +51,32 @@
 	height:300px;
 	margin:5px 0;
 }
-.markItUpFooter {
-	width:100%;
-	cursor:n-resize;
+
+.markItUpFooter
+{
+	width: 100%;
+	cursor: n-resize;
 }
-.markItUpResizeHandle {
-	overflow:hidden;
-	width:22px; height:5px;
-	margin-left:auto;
-	margin-right:auto;
-	background-image:url(images/handle.png);
-	cursor:n-resize;
+
+.markItUpResizeHandle
+{
+	overflow: hidden;
+	width: 22px;
+	height:5px;
+	margin-left: auto;
+	margin-right: auto;
+	background-image: url(images/handle.png);
+	cursor: n-resize;
 }
+
+.markItUpHeader
+{
+	padding: 5px 5px 0 5px;
+	overflow: auto;
+	border-bottom: solid 1px #bbb;
+	background: #FFF url(images/bg-container.png) repeat-x top left;
+}
+
 /***************************************************************************************/
 /* first row of buttons */
 .markItUpHeader ul li	{
