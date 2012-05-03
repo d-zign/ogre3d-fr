@@ -3107,9 +3107,9 @@ p.comment-form-comment {
 
 textarea#bbp_topic_content, textarea#bbp_reply_content
 {
-    width: 945px;
+    width: 948px;
     margin: 0;
-    border: solid 1px #ccc;
+    /*border: solid 1px #ccc;*/
     background-color: white;
     resize: vertical;
 }
@@ -3529,7 +3529,8 @@ ul#wpw_tab_nav li
 {
 	min-height: 300px;
 	resize: vertical;
-	width: 100%;
+	width: 975px;
+	padding-left: 3px;
 }
 
 #wpw_read_div

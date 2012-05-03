@@ -71,7 +71,7 @@
 
 .markItUpHeader
 {
-	padding: 5px 5px 0 5px;
+	padding: 5px 5px 5px 5px;
 	overflow: auto;
 	border-bottom: solid 1px #bbb;
 	background: #FFF url(images/bg-container.png) repeat-x top left;
@@ -97,12 +97,13 @@
 .markItUpHeader ul .markItUpDropMenu li {
 	margin-right:0px;
 }
-.markItUpHeader ul .markItUpSeparator {
-	margin:0 10px;
-	width:1px;
-	height:16px;
-	overflow:hidden;
-	background-color:#CCC;
+.markItUpHeader ul .markItUpSeparator
+{
+	margin: 0 10px 0 0;
+	width: 1px;
+	height: 16px;
+	overflow: hidden;
+	background-color: #bbb;
 }
 .markItUpHeader ul ul .markItUpSeparator {
 	width:auto; height:1px;
@@ -137,8 +138,7 @@
 	width:16px; height:16px;
 	text-indent:-10000px;
 	background-repeat:no-repeat;
-	padding:3px;
-	margin:0px;
+	margin: 0 10px 0 0;
 }
 .markItUpHeader ul ul a {
 	display:block;
