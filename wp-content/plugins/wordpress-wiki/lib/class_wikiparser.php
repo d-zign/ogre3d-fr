@@ -444,7 +444,7 @@ Done.
 
 		$output = "";
 		
-		$text = preg_replace_callback('/<nowiki>([\s\S]*)<\/nowiki>/i',array(&$this,"handle_save_nowiki"),$text);
+		$text = preg_replace_callback('/<nowiki>((?:(?!<\/nowiki>)[\s\S])*)<\/nowiki>/i',array(&$this,"handle_save_nowiki"),$text);
 
 		$lines = explode("\n",$text);
 		
@@ -464,12 +464,14 @@ Done.
 	}
 	
 	function handle_save_nowiki($matches) {
+		
 		array_push($this->nowikis,$matches[1]);
 		return "<nowiki></nowiki>";
 	}
 	
 	function handle_restore_nowiki($matches) {
-		return array_pop($this->nowikis);
+		
+		return array_shift($this->nowikis);
 	}
 }
 ?>
