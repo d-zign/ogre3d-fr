@@ -191,7 +191,7 @@ class WikiPageController {
 		global $post;
 		return '<div id="wpw_edit_div" '.$class.'>
 					<form action="" method="post">
-						<textarea name="wpw_editor_content" style="width:100%;height:200px;" id="area1" class="wiki">'.get_the_content().'</textarea>
+						<textarea name="wpw_editor_content" id="area1" class="wiki">'.get_the_content().'</textarea>
 						'.wp_nonce_field('wpw_edit_form').'
 						<p class="roundbutton"><input type="submit" value="' . __( 'Save', 'wordpress-wiki') . '" id="wpw_save" /></p>
 						<input type="hidden" value="'.$post->ID.'" name="wpw_id" />

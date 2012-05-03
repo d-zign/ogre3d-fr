@@ -79,8 +79,7 @@
 						<?php do_action( 'bbp_theme_before_topic_form_content' ); ?>
 
 						<p>
-                            <?php do_action( 'bbp_post_toolbar_insertion' ); ?>
-							<textarea id="bbp_topic_content" tabindex="<?php bbp_tab_index(); ?>" name="bbp_topic_content" cols="60" rows="6"><?php bbp_form_topic_content(); ?></textarea>
+							<textarea id="bbp_topic_content" class="bbcode" tabindex="<?php bbp_tab_index(); ?>" name="bbp_topic_content" cols="60" rows="6"><?php bbp_form_topic_content(); ?></textarea>
 						</p>
 
 						<?php do_action( 'bbp_theme_after_topic_form_content' ); ?>
