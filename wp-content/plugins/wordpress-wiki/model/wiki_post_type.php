@@ -32,7 +32,8 @@ class WikiPostType {
 			'edit_others_wiki_pages'=>true,
 			'publish_wiki_pages'=>true,
 			'delete_wiki_page'=>true,
-			'delete_others_wiki_pages'=>false
+			'delete_others_wiki_pages'=>false,
+			'upload_files'=>true
 		);
 		
 		$this->post_type_options = array(

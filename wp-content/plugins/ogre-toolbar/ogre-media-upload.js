@@ -39,7 +39,7 @@ jQuery(document).ready(function()
 	window.send_to_editor = function(html)
 	{
 		imgurl = jQuery('img', html).attr('src');
-		jQuery('#area1').insertAtCaret('[[Image:' + imgurl + ']]');
+		jQuery('#area1').insertAtCaret('<img src="' + imgurl + '" />');
 		tb_remove();
 	}
 });
