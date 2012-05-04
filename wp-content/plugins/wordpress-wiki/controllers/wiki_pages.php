@@ -195,7 +195,7 @@ class WikiPageController {
 	function get_edit($content, $class = null ){
 		global $post;
 		return '<div id="wpw_edit_div" '.$class.'>
-					<a onclick="return false;" title="Upload image" class="thickbox" id="add_image" href="' . home_url() . '/wp-admin/media-upload.php?type=wiki_image&amp;TB_iframe=true&amp;width=640&amp;height=105">Upload Image</a>
+					<a onclick="return false;" title="Upload image" class="thickbox" id="add_image" href="' . home_url() . '/wp-admin/media-upload.php?type=image&amp;tab=type&amp;TB_iframe=true&amp;width=640&amp;height=105">Upload Image</a>
 					<form action="?wpw_action=read" method="post">
 						<textarea name="wpw_editor_content" id="area1" class="wiki">'.get_the_content().'</textarea>
 						'.wp_nonce_field('wpw_edit_form').'

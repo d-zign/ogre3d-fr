@@ -532,3 +532,13 @@ function ogre_nav_class($classes, $item)
 	return $classes;
 }
 add_filter('nav_menu_css_class' , 'ogre_nav_class' , 10 , 2);
+
+function remove_nextgen_tab($tabs)
+{
+	unset($tabs['nextgen']);
+	return $tabs;
+}
+if (!current_user_can('NextGEN Upload images'))
+{
+	add_filter('media_upload_tabs', 'remove_nextgen_tab');
+}
