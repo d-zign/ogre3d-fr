@@ -27,6 +27,18 @@ class ogreToolBar
 		{
 			wp_enqueue_style('ogretoolbar_' . $set_name, WP_PLUGIN_URL . '/' . basename(dirname(__FILE__)) . '/markitup/sets/' . $set_name . '/style.css', false);
 		}
+		
+		wp_enqueue_script('media-upload');
+		wp_enqueue_script('thickbox');
+		wp_register_script('ogre-media-upload', WP_PLUGIN_URL . '/' . basename(dirname(__FILE__)) . '/ogre-media-upload.js', array('jquery', 'media-upload', 'thickbox'));
+		wp_enqueue_script('ogre-media-upload');
+		wp_enqueue_style('thickbox');
+
+		/*if (isset($_GET['page']) && $_GET['page'] == 'my_plugin_page')
+		{
+			add_action('admin_print_scripts', 'my_admin_scripts');
+			add_action('admin_print_styles', 'my_admin_styles');
+		}*/
 	}
 	
 	function trailingslashit($string)

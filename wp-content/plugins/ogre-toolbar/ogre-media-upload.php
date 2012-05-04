@@ -1,0 +1,1 @@
+<?php echo bloginfo('ogre3dfr') . '/wp-admin/media-upload.php)' ?>
