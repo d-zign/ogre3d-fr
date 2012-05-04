@@ -176,6 +176,8 @@ class WikiPageController {
 	function wiki_parser($content) {
 		global $post;
 		$wiki_parser = new WPW_WikiParser();
+		$wiki_parser->ignore_images = false;
+		$wiki_parser->image_uri = 'http://localhost/ogre3dfr/wp-content/uploads/2012/05/';
 		$wiki_parser->reference_wiki = get_bloginfo('url').'/wiki/';
 		$wiki_parser->suppress_linebreaks = true;
 		$content = $wiki_parser->parse($content, $post->post_title);
@@ -193,7 +195,8 @@ class WikiPageController {
 	function get_edit($content, $class = null ){
 		global $post;
 		return '<div id="wpw_edit_div" '.$class.'>
-					<form action="" method="post">
+					<a onclick="return false;" title="Upload image" class="thickbox" id="add_image" href="' . home_url() . '/wp-admin/media-upload.php?type=wiki_image&amp;TB_iframe=true&amp;width=640&amp;height=105">Upload Image</a>
+					<form action="?wpw_action=read" method="post">
 						<textarea name="wpw_editor_content" id="area1" class="wiki">'.get_the_content().'</textarea>
 						'.wp_nonce_field('wpw_edit_form').'
 						<p class="roundbutton"><input type="submit" value="' . __( 'Save', 'wordpress-wiki') . '" id="wpw_save" /></p>
