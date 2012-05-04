@@ -137,14 +137,16 @@ class WikiPageController {
 			$wpw_options = get_option('wpw_options');
 			remove_filter('the_content', 'wpautop');
 			remove_filter('the_content', 'wptexturize');
+			global $SyntaxHighlighter;
+			remove_filter('the_content', array( &$SyntaxHighlighter, 'parse_shortcodes' ), 7);
 			add_action('get_header', array($this,'styles'));
 			add_action('get_header', array($this,'scripts'), 9);
 			if ( !$this->WikiHelper->is_restricted() ) {
 				add_filter('the_content',array($this, 'substitute_in_revision_content'),11);
-				add_filter('the_content',array($this,'front_end_interface'),12);
+				add_filter('the_content',array($this,'front_end_interface'), 12);
 				//add_action('wp_footer',array($this,'inline_editor'));
 			} else {
-				add_filter('the_content',array($this,'wpw_nope') );
+				add_filter('the_content',array($this,'wpw_nope'));
 			}
 		}
 	}
@@ -177,14 +179,15 @@ class WikiPageController {
 		$wiki_parser->reference_wiki = get_bloginfo('url').'/wiki/';
 		$wiki_parser->suppress_linebreaks = true;
 		$content = $wiki_parser->parse($content, $post->post_title);
-		$content = wpautop($content);
+		//$content = wpautop($content);
 		return $content;
 		unset($wiki_parser);
 	}
 	
 	function get_content($content, $class = null )
 	{
-		return '<div id="wpw_read_div" '.$class.'>'.$this->table_of_contents( wptexturize( $this->wiki_parser($content) ) ).'</div>';	
+		global $SyntaxHighlighter;
+		return '<div id="wpw_read_div" '.$class.'>'.$this->table_of_contents( wptexturize(wpautop($SyntaxHighlighter->parse_shortcodes($this->wiki_parser($content) )))).'</div>';	
 	}
 	
 	function get_edit($content, $class = null ){
